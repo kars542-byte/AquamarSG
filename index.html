@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AquaMar Swimming Gold</title>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --navy: #1B2A4A; --aqua: #00A8CC; --gold: #F5C518; --white: #ffffff;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background: #f8f9fa; }
+        
+        /* Navbar */
+        .navbar { background: var(--navy); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; color: white; position: sticky; top: 0; z-index: 1000; }
+        .logo { font-size: 1.5rem; font-weight: bold; display: flex; align-items: center; gap: 10px; }
+        .logo i { color: var(--gold); }
+        .nav-links a { color: white; margin-left: 20px; text-decoration: none; font-weight: 500; }
+        @media (max-width: 600px) { .nav-links { display: none; } }
+
+        /* Hero */
+        .hero { background: linear-gradient(135deg, var(--navy) 0%, var(--aqua) 100%); color: white; padding: 60px 20px; text-align: center; }
+        .hero h1 { font-size: 2.8rem; margin-bottom: 15px; }
+        .hero h1 span { color: var(--gold); }
+        .hero p { font-size: 1.2rem; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .cta-btn { background: var(--gold); color: var(--navy); padding: 15px 35px; border: none; border-radius: 50px; font-weight: bold; font-size: 1.1rem; cursor: pointer; text-decoration: none; display: inline-block; }
+
+        /* Services Section */
+        .section-title { text-align: center; font-size: 2.2rem; color: var(--navy); margin: 50px 0 30px; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; }
+        .service-card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); text-align: center; }
+        .service-card i { font-size: 2.5rem; color: var(--aqua); margin-bottom: 15px; }
+        .service-card h3 { color: var(--navy); margin-bottom: 10px; }
+        .service-card .price { font-weight: bold; color: var(--gold); display: block; margin-top: 10px; }
+
+        /* About */
+        .about { background: var(--white); padding: 40px 20px; border-top: 4px solid var(--aqua); margin-top: 40px; }
+        .about p { max-width: 800px; margin: 0 auto; text-align: center; line-height: 1.6; color: #444; }
+
+        /* Contact & Footer */
+        .contact { background: var(--navy); color: white; padding: 40px 20px; text-align: center; margin-top: 40px; }
+        .contact h2 { margin-bottom: 20px; }
+        .contact a { color: var(--gold); text-decoration: none; font-weight: bold; font-size: 1.2rem; }
+        .footer { background: #0f1a2c; text-align: center; padding: 15px; color: #888; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav class="navbar">
+        <div class="logo"><i class="fas fa-swimmer"></i> AquaMar Gold</div>
+        <div class="nav-links">
+            <a href="#inicio">Inicio</a>
+            <a href="#clases">Clases</a>
+            <a href="#nosotros">Nosotros</a>
+            <a href="#contacto">Contacto</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section id="inicio" class="hero">
+        <h1>Nada como un <span>Campeón</span></h1>
+        <p>Escuela de natación profesional. Clases para niños, adultos y competencia. Ven y mejora tu técnica con nosotros.</p>
+        <a href="https://wa.me/519XXXXXXXXX" target="_blank" class="cta-btn"><i class="fab fa-whatsapp"></i> Escríbenos por WhatsApp</a>
+    </section>
+
+    <!-- SERVICES -->
+    <div class="container">
+        <h2 class="section-title" id="clases">Nuestras Especialidades</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <i class="fas fa-child"></i>
+                <h3>Iniciación Infantil</h3>
+                <p>De 4 a 8 años. Diversión y confianza en el agua.</p>
+                <span class="price">S/ 150 / mensual</span>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-user"></i>
+                <h3>Natación Adultos</h3>
+                <p>Corrige tu estilo y mejora tu salud.</p>
+                <span class="price">S/ 180 / mensual</span>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-trophy"></i>
+                <h3>Entrenamiento Competitivo</h3>
+                <p>Preparación para torneos regionales.</p>
+                <span class="price">S/ 250 / mensual</span>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-user-plus"></i>
+                <h3>Clases Privadas</h3>
+                <p>Atención 1 a 1 para resultados rápidos.</p>
+                <span class="price">S/ 60 / hora</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ABOUT -->
+    <section id="nosotros" class="about">
+        <h2 class="section-title">¿Por qué AquaMar Gold?</h2>
+        <p>Contamos con instructores certificados, piscina semi-olímpica climatizada y un método de enseñanza que garantiza resultados en 12 semanas. Más de 10 años formando deportistas en Lima.</p>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contacto" class="contact">
+        <h2>¿Listo para empezar?</h2>
+        <p style="margin-bottom: 15px;">Dirección: Av. Universitaria 1234, San Miguel</p>
+        <p><a href="https://wa.me/519XXXXXXXXX" target="_blank"><i class="fab fa-whatsapp"></i> +51 999 000 000</a></p>
+    </section>
+
+    <div class="footer">
+        &copy; 2026 AquaMar Swimming Gold. Todos los derechos reservados.
+    </div>
+</body>
+</html>

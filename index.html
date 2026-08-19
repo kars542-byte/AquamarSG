@@ -32,12 +32,17 @@
             z-index: 1000;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-        .logo { font-weight: 700; font-size: 1.4rem; display: flex; align-items: center; gap: 10px; }
+        .logo { font-weight: 700; font-size: 1.4rem; display: flex; align-items: center; gap: 10px; cursor: pointer; }
         .logo span { color: var(--brand-gold); }
         .logo i { color: var(--brand-gold); }
-        .nav-links { display: flex; gap: 25px; font-weight: 500; }
-        .nav-links a:hover { color: var(--brand-gold); transition: 0.3s; }
+        .nav-links { display: flex; gap: 20px; font-weight: 500; }
+        .nav-links a { cursor: pointer; transition: 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--brand-gold); }
         @media (max-width: 600px) { .nav-links { display: none; } }
+
+        /* TABS CONTENT */
+        .tab-content { display: none; padding: 20px 0; }
+        .tab-content.active { display: block; }
 
         /* HERO SECTION */
         .hero {
@@ -45,6 +50,7 @@
             color: white;
             text-align: center;
             padding: 80px 20px;
+            margin-bottom: 40px;
         }
         .hero h1 { font-size: 2.8rem; margin-bottom: 10px; letter-spacing: 1px;}
         .hero h1 span { color: var(--brand-gold); }
@@ -118,166 +124,246 @@
         .schedule-card li:last-child { border: none; }
         .highlight-time { color: var(--brand-light-blue); font-weight: bold; }
 
+        /* GALLERY (CAROUSELS) */
+        .carousel-container { position: relative; max-width: 800px; margin: 0 auto 40px; overflow: hidden; border-radius: 15px; }
+        .carousel-track { display: flex; transition: transform 0.4s ease-in-out; }
+        .carousel-item { min-width: 100%; background: #fff; display: flex; justify-content: center; align-items: center; }
+        .carousel-item img { width: 100%; height: auto; object-fit: cover; max-height: 450px; }
+        .carousel-item video { width: 100%; height: auto; max-height: 450px; background: black; }
+        .carousel-btn {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            background: rgba(0,0,0,0.5); color: white; border: none; padding: 15px; cursor: pointer;
+            font-size: 1.5rem; border-radius: 5px; z-index: 10;
+        }
+        .carousel-btn:hover { background: var(--brand-gold); color: #000; }
+        .prev-btn { left: 10px; }
+        .next-btn { right: 10px; }
+
+        /* CUSTOMER EXPERIENCE / REVIEWS */
+        .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-bottom: 50px; }
+        .review-card { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid #eee; }
+        .review-card .stars { color: var(--brand-gold); margin-bottom: 10px; font-size: 1.2rem; }
+        .review-card h4 { color: var(--brand-blue); margin-bottom: 5px; }
+        .review-card p { font-style: italic; color: #555; line-height: 1.5; }
+        
+        .review-form { background: white; max-width: 600px; margin: 0 auto; padding: 30px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .review-form h3 { text-align: center; color: var(--brand-blue); margin-bottom: 20px; }
+        .review-form input, .review-form textarea, .review-form select { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 8px; }
+        .review-form button { background: var(--brand-blue); color: white; border: none; padding: 12px; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        .review-form button:hover { background: #0d2e4d; }
+
         /* CONTACT & FOOTER */
-        .contact-section { background: var(--brand-blue); color: white; padding: 60px 20px; text-align: center; }
-        .contact-section h2 { margin-bottom: 20px; }
+        .contact-section { background: var(--brand-blue); color: white; padding: 60px 20px; text-align: center; margin-top: 40px; }
         .contact-grid { display: flex; flex-direction: column; gap: 10px; align-items: center; font-size: 1.1rem; }
         .contact-grid i { color: var(--brand-gold); margin-right: 10px; }
         .contact-grid a { color: white; font-weight: bold; }
         .contact-grid a:hover { color: var(--brand-gold); }
-        
         .map-container { margin: 40px auto; max-width: 800px; border-radius: 15px; overflow: hidden; border: 4px solid var(--brand-gold); }
-
+        
         footer { background: #0d253d; color: #aaa; text-align: center; padding: 20px; font-size: 0.9rem; }
         footer span { color: var(--brand-gold); }
-        
-        /* Floating WhatsApp */
+
+        /* FLOATING WHATSAPP */
         .floating-wa {
             position: fixed; bottom: 20px; right: 20px; background: #25D366; color: white; padding: 15px 20px;
             border-radius: 50px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); font-weight: bold; display: flex; align-items: center;
             gap: 10px; z-index: 999; text-decoration: none; transition: 0.3s; border: 2px solid white;
         }
         .floating-wa:hover { transform: scale(1.05); background: #1ebd5c; }
-        .floating-wa i { font-size: 1.5rem; }
-        @media (min-width: 769px) { .floating-wa { display: flex; } }
     </style>
 </head>
 <body>
 
     <!-- NAV -->
     <nav class="navbar">
-        <div class="logo"><i class="fas fa-swimmer"></i> Aqua<span>Mar</span></div>
+        <div class="logo" onclick="switchTab('home')"><i class="fas fa-swimmer"></i> Aqua<span>Mar</span></div>
         <div class="nav-links">
-            <a href="#servicios">Servicios</a>
-            <a href="#precios">Planes</a>
-            <a href="#horarios">Horarios</a>
-            <a href="#contacto">Contacto</a>
+            <a onclick="switchTab('home')" class="active" id="nav-home">Inicio</a>
+            <a onclick="switchTab('gallery')" id="nav-gallery">Galería</a>
+            <a onclick="switchTab('reviews')" id="nav-reviews">Experiencia</a>
         </div>
     </nav>
 
-    <!-- HERO -->
-    <section class="hero" id="inicio">
-        <h1>Aqua<span>Mar</span> Swimming Gold</h1>
-        <h3>Técnica, Fortaleza y Perseverancia</h3>
-        <p>Clases de natación para Bebés, Niños, Adultos y Terapia. Salud, bienestar y técnica para todos.<br>
-        <strong>Inclusión, desarrollo y diversión desde los 4 meses de edad.</strong></p>
-        
-        <div class="highlight-box">🎁 ¡CLASE PRUEBA GRATIS! (Previa coordinación)</div>
-        <br>
-        <a href="https://wa.me/51961875074?text=Hola%20AquaMar!%20Quiero%20agendar%20mi%20CLASE%20PRUEBA%20gratis." target="_blank" class="cta-btn">
-            <i class="fab fa-whatsapp"></i> Agenda tu prueba ahora
-        </a>
-        <p style="font-size: 0.9rem; margin-top: 15px; opacity: 0.8;">Horarios 100% combinables y personalizables</p>
-    </section>
-
-    <!-- SERVICES -->
-    <section id="servicios" class="container">
-        <h2 class="section-title">Nuestros <span>Servicios</span></h2>
-        <div class="services-grid">
-            <div class="service-card"><i class="fas fa-baby"></i><h4>AquaBebé</h4><p>Desde 4 meses a 3 años</p></div>
-            <div class="service-card"><i class="fas fa-child"></i><h4>Niños</h4><p>Desde 4 años en adelante</p></div>
-            <div class="service-card"><i class="fas fa-user"></i><h4>Adultos</h4><p>Básico, Avanzado y Competitivo</p></div>
-            <div class="service-card"><i class="fas fa-heartbeat"></i><h4>Terapia Acuática</h4><p>Especializada y de rehabilitación</p></div>
-            <div class="service-card"><i class="fas fa-trophy"></i><h4>Competitivo</h4><p>Entrenamiento para torneos</p></div>
-        </div>
-        <p style="text-align: center; font-weight: bold; color: var(--brand-blue); margin-top: 10px;">Los horarios se pueden combinar a tu medida (Lunes a Domingo).</p>
-    </section>
-
-    <!-- PRICING (PLANES Y TARIFAS) -->
-    <section id="precios" class="container">
-        <h2 class="section-title">Planes y <span>Tarifas</span></h2>
-        <div class="pricing-wrapper">
+    <!-- ================= HOME TAB ================= -->
+    <div id="home-tab" class="tab-content active">
+        <!-- HERO -->
+        <section class="hero" id="inicio">
+            <h1>Aqua<span>Mar</span> Swimming Gold</h1>
+            <h3>Técnica, Fortaleza y Perseverancia</h3>
+            <p>Clases de natación para Bebés, Niños, Adultos y Terapia. Salud, bienestar y técnica para todos.<br>
+            <strong>Inclusión, desarrollo y diversión desde los 4 meses de edad.</strong></p>
             
-            <!-- PREGUNTAR: Niños y Adultos -->
-            <div class="price-card">
-                <h3>Niños & Adultos</h3>
-                <div class="price-item"><span>12 Clases</span> S/ 300</div>
-                <div class="price-item"><span>08 Clases</span> S/ 270</div>
-                <div class="price-item"><span>04 Clases</span> S/ 190</div>
-                <div class="price-item"><span>01 Clase</span> S/ 50</div>
-                <div style="font-size: 0.8rem; color: #888; text-align: center; margin-top: 10px;">*Niños: 3 veces x semana / Adultos: 2 veces x semana</div>
-            </div>
+            <div class="highlight-box">🎁 ¡CLASE PRUEBA GRATIS! (Previa coordinación)</div>
+            <br>
+            <a href="https://wa.me/51961875074?text=Hola%20AquaMar!%20Quiero%20agendar%20mi%20CLASE%20PRUEBA%20gratis." target="_blank" class="cta-btn">
+                <i class="fab fa-whatsapp"></i> Agenda tu prueba ahora
+            </a>
+            <p style="font-size: 0.9rem; margin-top: 15px; opacity: 0.8;">Horarios 100% combinables y personalizables</p>
+        </section>
 
-            <!-- AquaBebé -->
-            <div class="price-card" style="border-top: 4px solid var(--brand-gold);">
-                <h3>AquaBebé <span style="color: var(--brand-gold); font-size: 0.8rem;">(4m - 3a)</span></h3>
-                <div class="price-item"><span>12 Clases</span> S/ 290</div>
-                <div class="price-item"><span>08 Clases</span> S/ 260</div>
-                <div class="price-item"><span>04 Clases</span> S/ 190</div>
-                <p style="font-size: 0.8rem; color: #888; margin-top: 10px; text-align: center;">Acompañamiento de un familiar en el agua.</p>
+        <!-- SERVICES -->
+        <section id="servicios" class="container">
+            <h2 class="section-title">Nuestros <span>Servicios</span></h2>
+            <div class="services-grid">
+                <div class="service-card"><i class="fas fa-baby"></i><h4>AquaBebé</h4><p>Desde 4 meses a 3 años</p></div>
+                <div class="service-card"><i class="fas fa-child"></i><h4>Niños</h4><p>Desde 4 años en adelante</p></div>
+                <div class="service-card"><i class="fas fa-user"></i><h4>Adultos</h4><p>Básico, Avanzado y Competitivo</p></div>
+                <div class="service-card"><i class="fas fa-heartbeat"></i><h4>Terapia Acuática</h4><p>Especializada y de rehabilitación</p></div>
+                <div class="service-card"><i class="fas fa-trophy"></i><h4>Competitivo</h4><p>Entrenamiento para torneos</p></div>
             </div>
+            <p style="text-align: center; font-weight: bold; color: var(--brand-blue); margin-top: 10px;">Los horarios se pueden combinar a tu medida (Lunes a Domingo).</p>
+        </section>
 
-            <!-- Promociones Especiales -->
-            <div class="price-card" style="background: #fcf8e7;">
-                <h3>🎉 Ofertas Especiales</h3>
-                <div class="promo-box">
-                    <h4>Grupo de 2 personas</h4>
-                    <p>Precio por persona: <span style="color:var(--brand-blue);">S/ 260</span></p>
+        <!-- PRICING -->
+        <section id="precios" class="container">
+            <h2 class="section-title">Planes y <span>Tarifas</span></h2>
+            <div class="pricing-wrapper">
+                <div class="price-card">
+                    <h3>Niños & Adultos</h3>
+                    <div class="price-item"><span>12 Clases</span> S/ 300</div>
+                    <div class="price-item"><span>08 Clases</span> S/ 270</div>
+                    <div class="price-item"><span>04 Clases</span> S/ 190</div>
+                    <div class="price-item"><span>01 Clase</span> S/ 50</div>
+                    <div style="font-size: 0.8rem; color: #888; text-align: center; margin-top: 10px;">*Niños: 3 veces x semana / Adultos: 2 veces x semana</div>
                 </div>
-                <div class="promo-box">
-                    <h4>Grupo de 3 personas</h4>
-                    <p>Precio por persona: <span style="color:var(--brand-blue);">S/ 260</span></p>
+                <div class="price-card" style="border-top: 4px solid var(--brand-gold);">
+                    <h3>AquaBebé <span style="color: var(--brand-gold); font-size: 0.8rem;">(4m - 3a)</span></h3>
+                    <div class="price-item"><span>12 Clases</span> S/ 290</div>
+                    <div class="price-item"><span>08 Clases</span> S/ 260</div>
+                    <div class="price-item"><span>04 Clases</span> S/ 190</div>
+                    <p style="font-size: 0.8rem; color: #888; margin-top: 10px; text-align: center;">Acompañamiento de un familiar en el agua.</p>
                 </div>
-                <div class="promo-box" style="border-color: var(--brand-blue);">
-                    <h4>Grupo de 4 a más personas</h4>
-                    <p>Precio por persona: <span style="color:var(--brand-blue);">S/ 240</span></p>
+                <div class="price-card" style="background: #fcf8e7;">
+                    <h3>🎉 Ofertas Especiales</h3>
+                    <div class="promo-box"><h4>Grupo de 2 personas</h4><p>Precio por persona: <span style="color:var(--brand-blue);">S/ 260</span></p></div>
+                    <div class="promo-box"><h4>Grupo de 3 personas</h4><p>Precio por persona: <span style="color:var(--brand-blue);">S/ 260</span></p></div>
+                    <div class="promo-box" style="border-color: var(--brand-blue);"><h4>Grupo de 4 a más personas</h4><p>Precio por persona: <span style="color:var(--brand-blue);">S/ 240</span></p></div>
                 </div>
             </div>
+        </section>
 
-        </div>
-    </section>
-
-    <!-- SCHEDULES (HORARIOS) -->
-    <section id="horarios" class="container" style="background: white; border-radius: 20px;">
-        <h2 class="section-title">Horarios de <span>Natación</span></h2>
-        <div class="schedule-grid">
-            <div class="schedule-card">
-                <h4><i class="fas fa-child"></i> Niños (4 años+)</h4>
-                <ul>
-                    <li><span class="highlight-time">Lun-Mie-Vie:</span> 05:00 - 08:00 pm</li>
-                    <li><span class="highlight-time">Mar-Jue:</span> 05:00 - 07:00 pm</li>
-                    <li><span class="highlight-time">Sábados:</span> 03:00 - 05:00 pm</li>
-                    <li><span class="highlight-time">Domingos:</span> 09:00 - 10:00 am</li>
-                </ul>
+        <!-- SCHEDULES -->
+        <section id="horarios" class="container" style="background: white; border-radius: 20px;">
+            <h2 class="section-title">Horarios de <span>Natación</span></h2>
+            <div class="schedule-grid">
+                <div class="schedule-card">
+                    <h4><i class="fas fa-child"></i> Niños (4 años+)</h4>
+                    <ul>
+                        <li><span class="highlight-time">Lun-Mie-Vie:</span> 05:00 - 08:00 pm</li>
+                        <li><span class="highlight-time">Mar-Jue:</span> 05:00 - 07:00 pm</li>
+                        <li><span class="highlight-time">Sábados:</span> 03:00 - 05:00 pm</li>
+                        <li><span class="highlight-time">Domingos:</span> 09:00 - 10:00 am</li>
+                    </ul>
+                </div>
+                <div class="schedule-card">
+                    <h4><i class="fas fa-user"></i> Adultos</h4>
+                    <ul>
+                        <li><span class="highlight-time">Lun-Mie-Vie:</span> 06:00 - 07:00 am / 06:00 - 09:00 pm</li>
+                        <li><span class="highlight-time">Mar-Jue:</span> 06:00 - 07:00 am</li>
+                        <li><span class="highlight-time">Sábados:</span> 03:00 - 05:00 pm</li>
+                        <li><span class="highlight-time">Domingos:</span> 09:00 - 10:00 am</li>
+                    </ul>
+                </div>
+                <div class="schedule-card" style="border-left-color: var(--brand-gold);">
+                    <h4><i class="fas fa-baby"></i> AquaBebé</h4>
+                    <ul>
+                        <li><span class="highlight-time">Lun-Mie-Vie:</span> 05:00 - 08:00 pm</li>
+                        <li><span class="highlight-time">Mar-Jue:</span> 05:00 - 07:00 pm</li>
+                        <li><span class="highlight-time">Sábados:</span> 03:00 - 05:00 pm</li>
+                        <li><span class="highlight-time">Domingos:</span> 10:00 am - 01:00 pm</li>
+                    </ul>
+                </div>
             </div>
+        </section>
 
-            <div class="schedule-card">
-                <h4><i class="fas fa-user"></i> Adultos</h4>
-                <ul>
-                    <li><span class="highlight-time">Lun-Mie-Vie:</span> 06:00 - 07:00 am / 06:00 - 09:00 pm</li>
-                    <li><span class="highlight-time">Mar-Jue:</span> 06:00 - 07:00 am</li>
-                    <li><span class="highlight-time">Sábados:</span> 03:00 - 05:00 pm</li>
-                    <li><span class="highlight-time">Domingos:</span> 09:00 - 10:00 am</li>
-                </ul>
+        <!-- CONTACT -->
+        <section id="contacto" class="contact-section">
+            <h2>¡Contáctanos <span style="color: var(--brand-gold);">Ahora</span>!</h2>
+            <div class="contact-grid">
+                <p><i class="fas fa-map-marker-alt"></i> Jr. prolongación Cusco 379 - San Miguel, Lima</p>
+                <p><i class="fas fa-phone-alt"></i> <a href="tel:+51961875074">961 875 074</a></p>
+                <p><i class="fab fa-whatsapp"></i> <a href="https://wa.me/51961875074" target="_blank">+51 961 875 074</a></p>
+                <p><i class="fas fa-envelope"></i> <a href="mailto:aquamarswimminggold@gmail.com">aquamarswimminggold@gmail.com</a></p>
             </div>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3901.041315115462!2d-77.0910897!3d-12.0760292!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105c915c8373e59%3A0xe2f422573d4a5d27!2sJr.%20Cusco%20379%2C%20San%20Miguel%2015086!5e0!3m2!1ses!2spe!4v1734567890123!5m2!1ses!2spe" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </section>
+    </div>
 
-            <div class="schedule-card" style="border-left-color: var(--brand-gold);">
-                <h4><i class="fas fa-baby"></i> AquaBebé</h4>
-                <ul>
-                    <li><span class="highlight-time">Lun-Mie-Vie:</span> 05:00 - 08:00 pm</li>
-                    <li><span class="highlight-time">Mar-Jue:</span> 05:00 - 07:00 pm</li>
-                    <li><span class="highlight-time">Sábados:</span> 03:00 - 05:00 pm</li>
-                    <li><span class="highlight-time">Domingos:</span> 10:00 am - 01:00 pm</li>
-                </ul>
+    <!-- ================= GALLERY TAB ================= -->
+    <div id="gallery-tab" class="tab-content container">
+        <h2 class="section-title">Galería de <span>Imágenes</span></h2>
+        <div class="carousel-container" id="image-slider">
+            <div class="carousel-track">
+                <!-- Images -->
+                <div class="carousel-item"><img src="IMG-20260819-WA0019.jpg" alt="AquaMar 1"></div>
+                <div class="carousel-item"><img src="IMG-20260819-WA0020.jpg" alt="AquaMar 2"></div>
+                <div class="carousel-item"><img src="IMG-20260819-WA0021.jpg" alt="AquaMar 3"></div>
+                <div class="carousel-item"><img src="IMG-20260819-WA0022.jpg" alt="AquaMar 4"></div>
+                <div class="carousel-item"><img src="IMG-20260819-WA0024.jpg" alt="AquaMar 5"></div>
+                <div class="carousel-item"><img src="IMG-20260819-WA0025.jpg" alt="AquaMar 6"></div>
+            </div>
+            <button class="carousel-btn prev-btn" onclick="moveCarousel('image-slider', -1)">❮</button>
+            <button class="carousel-btn next-btn" onclick="moveCarousel('image-slider', 1)">❯</button>
+        </div>
+
+        <h2 class="section-title">Galería de <span>Videos</span></h2>
+        <div class="carousel-container" id="video-slider">
+            <div class="carousel-track">
+                <!-- Videos -->
+                <div class="carousel-item"><video src="VID-20260819-WA0026.mp4" controls></video></div>
+                <div class="carousel-item"><video src="VID-20260819-WA0027.mp4" controls></video></div>
+                <div class="carousel-item"><video src="VID-20260819-WA0028.mp4" controls></video></div>
+                <div class="carousel-item"><video src="VID-20260819-WA0029.mp4" controls></video></div>
+                <div class="carousel-item"><video src="VID-20260819-WA0030.mp4" controls></video></div>
+                <div class="carousel-item"><video src="VID-20260819-WA0031.mp4" controls></video></div>
+            </div>
+            <button class="carousel-btn prev-btn" onclick="moveCarousel('video-slider', -1)">❮</button>
+            <button class="carousel-btn next-btn" onclick="moveCarousel('video-slider', 1)">❯</button>
+        </div>
+    </div>
+
+    <!-- ================= CUSTOMER EXPERIENCE TAB ================= -->
+    <div id="reviews-tab" class="tab-content container">
+        <h2 class="section-title">Experiencia de <span>Nuestros Alumnos</span></h2>
+        
+        <!-- Preloaded Reviews -->
+        <div class="reviews-grid">
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <h4>María G.</h4>
+                <p>"Excelente lugar, mi hijo aprendió a nadar en 2 meses. Los profesores son muy pacientes y las instalaciones de primer nivel. ¡Muy recomendado!"</p>
+            </div>
+            <div class="review-card">
+                <div class="stars">★★★★☆</div>
+                <h4>Carlos R.</h4>
+                <p>"Buenas instalaciones y profesores atentos. Las clases para adultos me ayudaron a mejorar mi técnica y perder el miedo al agua."</p>
+            </div>
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <h4>Ana Lucía</h4>
+                <p>"Mi bebé de 9 meses disfruta muchísimo sus clases de AquaBebé. Es un lugar muy seguro y cálido. La mejor decisión para su desarrollo."</p>
             </div>
         </div>
-    </section>
 
-    <!-- CONTACT -->
-    <section id="contacto" class="contact-section">
-        <h2>¡Contáctanos <span style="color: var(--brand-gold);">Ahora</span>!</h2>
-        <div class="contact-grid">
-            <p><i class="fas fa-map-marker-alt"></i> Jr. prolongación Cusco 379 - San Miguel, Lima</p>
-            <p><i class="fas fa-phone-alt"></i> <a href="tel:+51961875074">961 875 074</a></p>
-            <p><i class="fab fa-whatsapp"></i> <a href="https://wa.me/51961875074" target="_blank">+51 961 875 074</a></p>
-            <p><i class="fas fa-envelope"></i> <a href="mailto:aquamarswimminggold@gmail.com">aquamarswimminggold@gmail.com</a></p>
+        <!-- Leave a Review Form -->
+        <div class="review-form">
+            <h3>¡Déjanos tu comentario!</h3>
+            <form onsubmit="submitReview(event)">
+                <input type="text" placeholder="Tu nombre (opcional)" id="reviewer-name">
+                <select id="reviewer-stars">
+                    <option value="5">★★★★★ (Excelente)</option>
+                    <option value="4">★★★★☆ (Muy bueno)</option>
+                    <option value="3">★★★☆☆ (Bueno)</option>
+                    <option value="2">★★☆☆☆ (Regular)</option>
+                    <option value="1">★☆☆☆☆ (Malo)</option>
+                </select>
+                <textarea rows="4" placeholder="Cuéntanos tu experiencia en AquaMar..." id="reviewer-text" required></textarea>
+                <button type="submit">Enviar mi experiencia</button>
+            </form>
         </div>
-
-        <!-- Google Maps (Reemplaza el src con el embed real de su dirección) -->
-        <div class="map-container">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3901.041315115462!2d-77.0910897!3d-12.0760292!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105c915c8373e59%3A0xe2f422573d4a5d27!2sJr.%20Cusco%20379%2C%20San%20Miguel%2015086!5e0!3m2!1ses!2spe!4v1734567890123!5m2!1ses!2spe" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-    </section>
+    </div>
 
     <!-- FOOTER -->
     <footer>
@@ -286,8 +372,63 @@
 
     <!-- BOTÓN FLOTANTE DE WHATSAPP -->
     <a href="https://wa.me/51961875074?text=Hola%20AquaMar!%20Quiero%20consultar%20por%20sus%20clases%20de%20nataci%C3%B3n." target="_blank" class="floating-wa">
-        <i class="fab fa-whatsapp"></i> <span style="font-size: 0.9rem; display: none; @media(min-width:769px){display:inline;}">Escríbenos</span>
+        <i class="fab fa-whatsapp"></i> <span>Escríbenos</span>
     </a>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Tabs Navigation
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-links a').forEach(el => el.classList.remove('active'));
+            
+            document.getElementById(tabName + '-tab').classList.add('active');
+            document.getElementById('nav-' + tabName).classList.add('active');
+            
+            // Reset carousels when switching to gallery
+            if(tabName === 'gallery') {
+                document.querySelectorAll('.carousel-track').forEach(track => {
+                    track.style.transform = 'translateX(0px)';
+                });
+            }
+        }
+
+        // Carousel Logic
+        function moveCarousel(sliderId, direction) {
+            const track = document.getElementById(sliderId).querySelector('.carousel-track');
+            const items = track.querySelectorAll('.carousel-item');
+            const itemWidth = items[0].clientWidth;
+            let currentIndex = 0;
+            
+            // get current transform
+            const style = window.getComputedStyle(track);
+            const matrix = new WebKitCSSMatrix(style.transform);
+            let translateX = matrix.m41 || 0;
+            currentIndex = Math.round(Math.abs(translateX) / itemWidth);
+
+            let newIndex = currentIndex + direction;
+            if (newIndex < 0) newIndex = 0;
+            if (newIndex >= items.length) newIndex = items.length - 1;
+
+            track.style.transform = `translateX(-${newIndex * itemWidth}px)`;
+        }
+
+        // Simulated Review Submission
+        function submitReview(event) {
+            event.preventDefault(); // Stops the page from reloading
+            const name = document.getElementById('reviewer-name').value || "Cliente Anónimo";
+            const stars = document.getElementById('reviewer-stars').value;
+            const text = document.getElementById('reviewer-text').value;
+
+            if(text.trim() === "") {
+                alert("Por favor, escribe tu experiencia antes de enviar.");
+                return;
+            }
+
+            alert(`¡Gracias ${name} por tu reseña!\n(Nota: Como esta es una página estática, tu comentario se ha simulado exitosamente. Para guardarlo en una base de datos real, necesitamos conectar un backend como Firebase, ¡pero la interfaz está lista!)`);
+            document.querySelector('.review-form form').reset();
+        }
+    </script>
 
 </body>
 </html>

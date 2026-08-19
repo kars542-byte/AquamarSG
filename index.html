@@ -5,17 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AquaMar Swimming Gold - Clases de Natación</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Fuente estilo Serif para darle toque vintage -->
+    <link href="https://fonts.googleapis.com/css2?family=Georgia&display=swap" rel="stylesheet">
     <style>
         :root {
-            --brand-blue: #1a3f6b;
-            --brand-gold: #fbc02d;
-            --brand-light-blue: #4db8d1;
-            --bg-light: #f4f7fa;
-            --text-dark: #333;
+            /* COLORES QUE PUEDES CAMBIAR SEGÚN EL CARNET QUE TE ENVÍE */
+            --brand-blue: #2C7A85; /* Turquesa vintage */
+            --brand-gold: #C5A058; /* Oro desgastado/viejo */
+            --brand-light-blue: #69C1C9; /* Celeste claro */
+            --bg-light: #F7F3EB; /* Fondo color papel antiguo */
+            --text-dark: #3A3A3A;
+            --frame-color: #E8DCCA; /* Color del marco de fotos */
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
-        body { background: var(--bg-light); color: var(--text-dark); }
+        body { background: var(--bg-light); color: var(--text-dark); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
 
         a { text-decoration: none; color: inherit; }
         
@@ -30,9 +34,9 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
-        .logo { font-weight: 700; font-size: 1.4rem; display: flex; align-items: center; gap: 10px; cursor: pointer; }
+        .logo { font-family: 'Georgia', serif; font-weight: 700; font-size: 1.6rem; display: flex; align-items: center; gap: 10px; cursor: pointer; letter-spacing: 1px;}
         .logo span { color: var(--brand-gold); }
         .logo i { color: var(--brand-gold); }
         .nav-links { display: flex; gap: 20px; font-weight: 500; }
@@ -44,130 +48,143 @@
         .tab-content { display: none; padding: 20px 0; }
         .tab-content.active { display: block; }
 
-        /* HERO SECTION */
+        /* HERO SECTION (Estilo Vintage) */
         .hero {
-            background: linear-gradient(135deg, var(--brand-blue) 0%, #2b6a9e 100%);
+            background: linear-gradient(145deg, var(--brand-blue) 0%, #408b96 100%);
             color: white;
             text-align: center;
             padding: 80px 20px;
             margin-bottom: 40px;
+            border-bottom: 6px solid var(--brand-gold);
         }
-        .hero h1 { font-size: 2.8rem; margin-bottom: 10px; letter-spacing: 1px;}
+        .hero h1 { font-family: 'Georgia', serif; font-size: 3.2rem; margin-bottom: 10px; letter-spacing: 1px; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);}
         .hero h1 span { color: var(--brand-gold); }
         .hero h3 { font-size: 1.2rem; font-weight: 400; margin-bottom: 10px; }
         .hero p { max-width: 700px; margin: 15px auto 25px; line-height: 1.6; font-size: 1.1rem; opacity: 0.95; }
         .hero .highlight-box {
             background: var(--brand-gold);
-            color: var(--brand-blue);
+            color: #2C2C2C;
             display: inline-block;
             padding: 12px 25px;
-            border-radius: 30px;
+            border-radius: 5px;
             font-weight: bold;
             font-size: 1.2rem;
             margin-bottom: 25px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
         }
         .cta-btn {
             background: white;
             color: var(--brand-blue);
             padding: 15px 35px;
-            border-radius: 50px;
+            border-radius: 5px;
             font-weight: bold;
             font-size: 1.1rem;
             display: inline-block;
             border: none;
             cursor: pointer;
             transition: transform 0.2s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
-        .cta-btn:hover { transform: scale(1.05); background: var(--brand-gold); }
+        .cta-btn:hover { transform: scale(1.05); background: #f0f0f0; }
         .cta-btn i { margin-right: 8px; }
 
         /* GENERAL LAYOUT */
         .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
-        .section-title { text-align: center; font-size: 2.2rem; color: var(--brand-blue); margin-bottom: 30px; }
+        .section-title { text-align: center; font-family: 'Georgia', serif; font-size: 2.5rem; color: var(--brand-blue); margin-bottom: 30px; letter-spacing: 0.5px;}
         .section-title span { color: var(--brand-gold); }
 
         /* SERVICES */
         .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; margin-bottom: 20px; }
         .service-card {
-            background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-            text-align: center; border-top: 4px solid var(--brand-light-blue);
+            background: #fff; padding: 30px; border-radius: 10px; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+            text-align: center; border: 1px solid #EBE3D3;
+            transition: transform 0.3s;
         }
-        .service-card i { font-size: 2.5rem; color: var(--brand-blue); margin-bottom: 10px; }
-        .service-card h4 { color: var(--brand-blue); }
+        .service-card:hover { transform: translateY(-5px); border-color: var(--brand-light-blue); }
+        .service-card i { font-size: 2.8rem; color: var(--brand-blue); margin-bottom: 10px; }
+        .service-card h4 { color: var(--brand-blue); font-family: 'Georgia', serif;}
         .service-card p { font-size: 0.9rem; color: #666; margin-top: 5px; }
 
         /* PRICING TABLE */
         .pricing-wrapper { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
         .price-card {
-            background: white; border-radius: 15px; padding: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            border: 1px solid #eee;
+            background: white; border-radius: 10px; padding: 25px; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+            border: 2px solid #EBE3D3;
         }
-        .price-card h3 { color: var(--brand-blue); border-bottom: 3px solid var(--brand-gold); padding-bottom: 15px; margin-bottom: 15px; text-align: center; }
+        .price-card h3 { color: var(--brand-blue); border-bottom: 3px solid var(--brand-gold); padding-bottom: 15px; margin-bottom: 15px; text-align: center; font-family: 'Georgia', serif;}
         .price-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px dashed #eee; font-weight: 500; }
         .price-item:last-child { border-bottom: none; }
-        .price-item span { color: var(--brand-blue); }
+        .price-item span { color: var(--brand-blue); font-weight: bold; }
         .promo-box {
-            background: #eaf6fa; border: 2px dashed var(--brand-gold); border-radius: 12px; padding: 15px; text-align: center; margin-top: 15px;
+            background: #F7F3EB; border: 2px solid var(--brand-gold); border-radius: 8px; padding: 15px; text-align: center; margin-top: 15px;
         }
-        .promo-box h4 { color: var(--brand-blue); margin-bottom: 5px; }
-        .promo-box p { margin: 3px 0; font-weight: bold; color: var(--brand-blue); }
+        .promo-box h4 { color: var(--brand-blue); margin-bottom: 5px; font-family: 'Georgia', serif;}
+        .promo-box p { margin: 3px 0; font-weight: bold; color: var(--text-dark); }
 
         /* SCHEDULE SECTION */
         .schedule-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
         .schedule-card {
-            background: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            border-left: 5px solid var(--brand-blue);
+            background: white; border-radius: 10px; padding: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            border: 1px solid #EBE3D3;
         }
-        .schedule-card h4 { color: var(--brand-blue); margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+        .schedule-card h4 { color: var(--brand-blue); margin-bottom: 10px; display: flex; align-items: center; gap: 10px; font-family: 'Georgia', serif;}
         .schedule-card ul { list-style: none; padding-left: 0; }
         .schedule-card li { padding: 5px 0; font-size: 0.95rem; border-bottom: 1px solid #f0f0f0; }
         .schedule-card li:last-child { border: none; }
-        .highlight-time { color: var(--brand-light-blue); font-weight: bold; }
+        .highlight-time { color: var(--brand-blue); font-weight: bold; }
 
-        /* GALLERY (CAROUSELS) */
-        .carousel-container { position: relative; max-width: 800px; margin: 0 auto 40px; overflow: hidden; border-radius: 15px; }
+        /* GALLERY (CAROUSELS WITH VINTAGE FRAME) */
+        .carousel-container { 
+            position: relative; max-width: 800px; margin: 0 auto 60px; 
+            border: 12px solid var(--frame-color); /* MARCO DE FOTO VINTAGE */
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.08), 0 10px 20px rgba(0,0,0,0.1);
+            border-radius: 4px; background: var(--frame-color);
+        }
         .carousel-track { display: flex; transition: transform 0.4s ease-in-out; }
         .carousel-item { min-width: 100%; background: #fff; display: flex; justify-content: center; align-items: center; }
         .carousel-item img { width: 100%; height: auto; object-fit: cover; max-height: 450px; }
         .carousel-item video { width: 100%; height: auto; max-height: 450px; background: black; }
         .carousel-btn {
             position: absolute; top: 50%; transform: translateY(-50%);
-            background: rgba(0,0,0,0.5); color: white; border: none; padding: 15px; cursor: pointer;
-            font-size: 1.5rem; border-radius: 5px; z-index: 10;
+            background: rgba(44, 122, 133, 0.8); color: white; border: none; padding: 12px 18px; cursor: pointer;
+            font-size: 1.5rem; z-index: 10; border-radius: 0;
+            font-weight: bold; font-family: 'Georgia', serif;
         }
-        .carousel-btn:hover { background: var(--brand-gold); color: #000; }
-        .prev-btn { left: 10px; }
-        .next-btn { right: 10px; }
+        .carousel-btn:hover { background: var(--brand-gold); color: #fff; }
+        .prev-btn { left: 0; }
+        .next-btn { right: 0; }
 
         /* CUSTOMER EXPERIENCE / REVIEWS */
         .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-bottom: 50px; }
-        .review-card { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid #eee; }
+        .review-card { background: white; padding: 25px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.03); border: 1px solid #EBE3D3; }
         .review-card .stars { color: var(--brand-gold); margin-bottom: 10px; font-size: 1.2rem; }
-        .review-card h4 { color: var(--brand-blue); margin-bottom: 5px; }
+        .review-card h4 { color: var(--brand-blue); margin-bottom: 5px; font-family: 'Georgia', serif;}
         .review-card p { font-style: italic; color: #555; line-height: 1.5; }
         
-        .review-form { background: white; max-width: 600px; margin: 0 auto; padding: 30px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .review-form h3 { text-align: center; color: var(--brand-blue); margin-bottom: 20px; }
-        .review-form input, .review-form textarea, .review-form select { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 8px; }
-        .review-form button { background: var(--brand-blue); color: white; border: none; padding: 12px; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; }
-        .review-form button:hover { background: #0d2e4d; }
+        .review-form { background: white; max-width: 600px; margin: 0 auto; padding: 30px; border-radius: 10px; border: 2px solid #EBE3D3; }
+        .review-form h3 { text-align: center; color: var(--brand-blue); margin-bottom: 20px; font-family: 'Georgia', serif;}
+        .review-form input, .review-form textarea, .review-form select { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #EBE3D3; border-radius: 4px; background: #FCFAF5;}
+        .review-form button { background: var(--brand-blue); color: white; border: none; padding: 12px; width: 100%; border-radius: 4px; font-weight: bold; cursor: pointer; }
+        .review-form button:hover { background: #1F5D67; }
 
         /* CONTACT & FOOTER */
-        .contact-section { background: var(--brand-blue); color: white; padding: 60px 20px; text-align: center; margin-top: 40px; }
+        .contact-section { background: var(--brand-blue); color: white; padding: 60px 20px; text-align: center; margin-top: 40px; border-top: 6px solid var(--brand-gold); }
         .contact-grid { display: flex; flex-direction: column; gap: 10px; align-items: center; font-size: 1.1rem; }
         .contact-grid i { color: var(--brand-gold); margin-right: 10px; }
         .contact-grid a { color: white; font-weight: bold; }
         .contact-grid a:hover { color: var(--brand-gold); }
-        .map-container { margin: 40px auto; max-width: 800px; border-radius: 15px; overflow: hidden; border: 4px solid var(--brand-gold); }
+        .map-container { margin: 40px auto; max-width: 800px; border-radius: 4px; overflow: hidden; border: 6px solid var(--brand-gold); }
         
-        footer { background: #0d253d; color: #aaa; text-align: center; padding: 20px; font-size: 0.9rem; }
+        footer { background: #1F393F; color: #bbb; text-align: center; padding: 20px; font-size: 0.9rem; }
         footer span { color: var(--brand-gold); }
 
         /* FLOATING WHATSAPP */
         .floating-wa {
             position: fixed; bottom: 20px; right: 20px; background: #25D366; color: white; padding: 15px 20px;
-            border-radius: 50px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); font-weight: bold; display: flex; align-items: center;
-            gap: 10px; z-index: 999; text-decoration: none; transition: 0.3s; border: 2px solid white;
+            border-radius: 5px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); font-weight: bold; display: flex; align-items: center;
+            gap: 10px; z-index: 999; text-decoration: none; transition: 0.3s; border: 2px solid #fff;
         }
         .floating-wa:hover { transform: scale(1.05); background: #1ebd5c; }
     </style>
@@ -226,14 +243,14 @@
                     <div class="price-item"><span>01 Clase</span> S/ 50</div>
                     <div style="font-size: 0.8rem; color: #888; text-align: center; margin-top: 10px;">*Niños: 3 veces x semana / Adultos: 2 veces x semana</div>
                 </div>
-                <div class="price-card" style="border-top: 4px solid var(--brand-gold);">
+                <div class="price-card" style="border: 2px solid var(--brand-gold);">
                     <h3>AquaBebé <span style="color: var(--brand-gold); font-size: 0.8rem;">(4m - 3a)</span></h3>
                     <div class="price-item"><span>12 Clases</span> S/ 290</div>
                     <div class="price-item"><span>08 Clases</span> S/ 260</div>
                     <div class="price-item"><span>04 Clases</span> S/ 190</div>
                     <p style="font-size: 0.8rem; color: #888; margin-top: 10px; text-align: center;">Acompañamiento de un familiar en el agua.</p>
                 </div>
-                <div class="price-card" style="background: #fcf8e7;">
+                <div class="price-card" style="background: #fcf9f2;">
                     <h3>🎉 Ofertas Especiales</h3>
                     <div class="promo-box"><h4>Grupo de 2 personas</h4><p>Precio por persona: <span style="color:var(--brand-blue);">S/ 260</span></p></div>
                     <div class="promo-box"><h4>Grupo de 3 personas</h4><p>Precio por persona: <span style="color:var(--brand-blue);">S/ 260</span></p></div>
@@ -243,7 +260,7 @@
         </section>
 
         <!-- SCHEDULES -->
-        <section id="horarios" class="container" style="background: white; border-radius: 20px;">
+        <section id="horarios" class="container" style="background: white; border-radius: 10px; border: 1px solid #EBE3D3; padding: 40px 20px;">
             <h2 class="section-title">Horarios de <span>Natación</span></h2>
             <div class="schedule-grid">
                 <div class="schedule-card">
@@ -385,7 +402,6 @@
             document.getElementById(tabName + '-tab').classList.add('active');
             document.getElementById('nav-' + tabName).classList.add('active');
             
-            // Reset carousels when switching to gallery
             if(tabName === 'gallery') {
                 document.querySelectorAll('.carousel-track').forEach(track => {
                     track.style.transform = 'translateX(0px)';
@@ -400,7 +416,6 @@
             const itemWidth = items[0].clientWidth;
             let currentIndex = 0;
             
-            // get current transform
             const style = window.getComputedStyle(track);
             const matrix = new WebKitCSSMatrix(style.transform);
             let translateX = matrix.m41 || 0;
@@ -415,9 +430,8 @@
 
         // Simulated Review Submission
         function submitReview(event) {
-            event.preventDefault(); // Stops the page from reloading
+            event.preventDefault();
             const name = document.getElementById('reviewer-name').value || "Cliente Anónimo";
-            const stars = document.getElementById('reviewer-stars').value;
             const text = document.getElementById('reviewer-text').value;
 
             if(text.trim() === "") {

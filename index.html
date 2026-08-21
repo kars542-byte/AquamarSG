@@ -3,27 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AquaMar Swimming Gold - ¡La Ola te espera!</title>
+    <title>AquaMar Swimming Gold - Credencial del Club</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --aqua-deep: #004e92;
-            --aqua-bright: #00b4db;
-            --aqua-light: #72f6ff;
-            --gold: #ffd700;
-            --bg-dark: #0a192f;
-            --text: #ffffff;
-            --text-dark: #12263a;
+            /* Colores exactos basados en la credencial */
+            --navy-deep: #1d3b6b;      /* Azul Marino Profundo (Texto y logo) */
+            --gold: #c9963f;            /* Dorado elegante (Acentos) */
+            --soft-pink: #f4c7e0;       /* Rosa suave (Olas) */
+            --soft-purple: #e1bee7;     /* Lavanda (Olas) */
+            --soft-blue: #b3d3ea;       /* Celeste suave (Olas) */
+            --bg-white: #ffffff;        /* Blanco puro (Fondo principal) */
+            --text-dark: #1d3b6b;       /* Azul marino para textos */
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Poppins', sans-serif; background: var(--bg-dark); color: var(--text); overflow-x: hidden; }
+        body { font-family: 'Poppins', sans-serif; background: var(--bg-white); color: var(--text-dark); overflow-x: hidden; }
         a { text-decoration: none; color: inherit; }
         
-        /* ======== ANIMACIONES DE AGUA ======== */
+        /* ======== ANIMACIONES DE AGUA (Suaves) ======== */
         @keyframes floatBubble {
             0% { transform: translateY(0) scale(1); opacity: 0; }
-            15% { opacity: 1; }
+            10% { opacity: 0.6; }
             100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
         }
         @keyframes gradientShift {
@@ -35,10 +36,6 @@
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
         }
-        @keyframes shineText {
-            0% { background-position: 200% center; }
-            100% { background-position: -200% center; }
-        }
         @keyframes slideBanner {
             0%, 20% { transform: translateX(0); }
             25%, 45% { transform: translateX(-100%); }
@@ -49,8 +46,7 @@
 
         /* ======== NAVBAR ======== */
         .navbar {
-            background: rgba(0, 78, 146, 0.9);
-            backdrop-filter: blur(10px);
+            background: var(--navy-deep);
             padding: 15px 30px;
             display: flex;
             justify-content: space-between;
@@ -58,24 +54,24 @@
             position: sticky; top: 0; z-index: 1000;
             border-bottom: 3px solid var(--gold);
         }
-        .logo { font-weight: 800; font-size: 1.5rem; cursor: pointer; }
+        .logo { font-weight: 800; font-size: 1.6rem; cursor: pointer; color: white; }
         .logo span { color: var(--gold); }
         .nav-links { display: flex; gap: 20px; }
-        .nav-links a { font-weight: 600; transition: 0.3s; }
-        .nav-links a:hover, .nav-links a.active { color: var(--gold); text-shadow: 0 0 10px var(--gold); }
+        .nav-links a { font-weight: 600; color: white; transition: 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--gold); }
         
         .hamburger { display: none; font-size: 2rem; color: var(--gold); cursor: pointer; }
         @media (max-width: 768px) {
             .hamburger { display: block; }
             .nav-links {
                 display: none; flex-direction: column; width: 100%; position: absolute;
-                top: 70px; left: 0; background: var(--aqua-deep); padding: 20px;
+                top: 70px; left: 0; background: var(--navy-deep); padding: 20px;
                 text-align: center; border-bottom: 3px solid var(--gold);
             }
             .nav-links.active { display: flex; }
         }
 
-        /* ======== HERO (BANNER ANIMADO + OLEAJE) ======== */
+        /* ======== HERO ACUÁTICO ======== */
         .hero {
             position: relative;
             height: 90vh;
@@ -84,14 +80,16 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            background: linear-gradient(135deg, #004e92, #00b4db, #72f6ff, #004e92);
-            background-size: 400% 400%;
-            animation: gradientShift 10s ease infinite;
+            /* Degradado de olas Rosa, Lila y Celeste */
+            background: linear-gradient(135deg, #ffffff 0%, var(--soft-pink) 25%, var(--soft-purple) 50%, var(--soft-blue) 75%, #ffffff 100%);
+            background-size: 300% 300%;
+            animation: gradientShift 15s ease infinite;
             overflow: hidden;
         }
         .bubbles span {
             position: absolute; bottom: -50px;
-            background: rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.5); /* Burbujas blancas suaves */
+            border: 1px solid var(--soft-blue);
             border-radius: 50%;
             animation: floatBubble 10s linear infinite;
         }
@@ -102,104 +100,121 @@
         .bubbles span:nth-child(5) { left: 90%; width: 25px; height: 25px; animation-duration: 7s; }
 
         .hero h1 {
-            font-size: 4rem; font-weight: 800; z-index: 2;
-            background: linear-gradient(to right, #fff, var(--gold), #fff);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shineText 3s linear infinite;
+            font-size: 4rem; font-weight: 800; z-index: 2; color: var(--navy-deep);
+            text-shadow: 2px 2px 0px rgba(255,255,255,0.8);
         }
-        .hero h3 { font-size: 1.5rem; margin-bottom: 15px; font-weight: 600; }
-        .hero p { max-width: 600px; font-weight: 400; margin-bottom: 30px; }
+        .hero h1 span { color: var(--gold); }
+        .hero h3 { font-size: 1.4rem; margin-bottom: 15px; font-weight: 600; color: var(--navy-deep); }
+        .hero p { max-width: 600px; font-weight: 500; margin-bottom: 30px; color: var(--navy-deep); }
 
-        /* Banner deslizante (Promociones) */
+        /* Banner deslizante con colores del club */
         .moving-banner {
-            background: var(--gold); width: 100%; overflow: hidden;
-            padding: 15px 0; margin-bottom: 30px; border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            background: var(--navy-deep); width: 100%; overflow: hidden;
+            padding: 12px 0; margin-bottom: 30px; border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(29, 59, 107, 0.2);
+            border: 2px solid var(--gold);
         }
         .banner-track {
             display: flex; width: 500%; animation: slideBanner 15s linear infinite;
-            color: var(--aqua-deep); font-weight: 800; font-size: 1.5rem;
+            color: var(--gold); font-weight: 800; font-size: 1.3rem;
         }
         .banner-slide { width: 20%; flex-shrink: 0; text-align: center; }
 
         .cta-btn {
-            background: var(--gold); color: var(--aqua-deep);
+            background: var(--gold); color: var(--navy-deep);
             padding: 18px 45px; border-radius: 50px; font-weight: 800;
-            font-size: 1.2rem; border: none; cursor: pointer;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: 0.3s; z-index: 2;
+            font-size: 1.2rem; border: 3px solid var(--navy-deep); cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15); transition: 0.3s; z-index: 2;
         }
-        .cta-btn:hover { transform: scale(1.1); background: #fff; }
+        .cta-btn:hover { transform: scale(1.05); background: white; }
 
-        /* Olas en el borde inferior */
+        /* Olas en el borde inferior (Rosa/Celeste) */
         .wave-container { position: absolute; bottom: 0; width: 100%; line-height: 0; }
-        .wave1 { width: 200%; height: 100px; background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg"><path d="M0,60 C150,110 350,0 600,30 C850,60 1050,0 1200,30 L1200,120 L0,120 Z" fill="%230a192f"/></svg>') repeat-x; animation: waveMove 8s linear infinite; }
-        .wave2 { width: 200%; height: 100px; background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg"><path d="M0,60 C150,110 350,0 600,30 C850,60 1050,0 1200,30 L1200,120 L0,120 Z" fill="%23123a5c"/></svg>') repeat-x; animation: waveMove 12s linear infinite; opacity: 0.8; }
-        .wave3 { width: 200%; height: 100px; background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg"><path d="M0,60 C150,110 350,0 600,30 C850,60 1050,0 1200,30 L1200,120 L0,120 Z" fill="%23004e92"/></svg>') repeat-x; animation: waveMove 16s linear infinite; opacity: 0.5; }
+        .wave1 { width: 200%; height: 100px; background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg"><path d="M0,60 C150,110 350,0 600,30 C850,60 1050,0 1200,30 L1200,120 L0,120 Z" fill="%23ffffff"/></svg>') repeat-x; animation: waveMove 8s linear infinite; }
+        .wave2 { width: 200%; height: 100px; background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg"><path d="M0,60 C150,110 350,0 600,30 C850,60 1050,0 1200,30 L1200,120 L0,120 Z" fill="%23f4c7e0"/></svg>') repeat-x; animation: waveMove 12s linear infinite; opacity: 0.8; }
+        .wave3 { width: 200%; height: 100px; background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg"><path d="M0,60 C150,110 350,0 600,30 C850,60 1050,0 1200,30 L1200,120 L0,120 Z" fill="%23b3d3ea"/></svg>') repeat-x; animation: waveMove 16s linear infinite; opacity: 0.6; }
 
         /* ======== SECCIONES GENERALES ======== */
         .tab-content { display: none; padding: 50px 20px; }
         .tab-content.active { display: block; }
         .container { max-width: 1100px; margin: 0 auto; }
-        .section-title { text-align: center; font-size: 2.8rem; font-weight: 800; margin-bottom: 30px; color: var(--aqua-light); text-shadow: 0 0 20px rgba(114,246,255,0.4); }
-        
-        /* Servicios con animación flotante */
+        .section-title { text-align: center; font-size: 2.6rem; font-weight: 800; margin-bottom: 30px; color: var(--navy-deep); }
+        .section-title span { color: var(--gold); }
+
+        /* Servicios */
         .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 25px; }
         .service-card {
-            background: linear-gradient(135deg, #123a5c, #004e92);
+            background: #fff;
             padding: 40px 20px; border-radius: 20px; text-align: center;
-            border: 2px solid var(--aqua-bright); transition: 0.3s;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+            border: 2px solid var(--soft-blue); transition: 0.3s;
+            box-shadow: 0 10px 25px rgba(179, 211, 234, 0.3);
         }
-        .service-card:hover { transform: translateY(-15px); border-color: var(--gold); }
-        .service-card i { font-size: 3rem; color: var(--aqua-light); margin-bottom: 15px; }
+        .service-card:hover { transform: translateY(-10px); border-color: var(--gold); }
+        .service-card i { font-size: 3rem; color: var(--soft-purple); margin-bottom: 15px; }
+        .service-card h4 { color: var(--navy-deep); }
 
         /* Precios */
         .pricing-wrapper { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
-        .price-card { background: #fff; color: var(--text-dark); border-radius: 20px; padding: 30px; border-bottom: 6px solid var(--gold); box-shadow: 0 15px 30px rgba(0,0,0,0.3); transition: 0.3s; }
+        .price-card { background: #fff; border-radius: 20px; padding: 30px; border-bottom: 6px solid var(--gold); box-shadow: 0 15px 30px rgba(179, 211, 234, 0.3); border: 1px solid var(--soft-blue); transition: 0.3s; }
         .price-card:hover { transform: translateY(-10px); }
-        .price-card h3 { color: var(--aqua-deep); font-weight: 800; border-bottom: 2px solid var(--aqua-bright); padding-bottom: 15px; margin-bottom: 15px; }
-        .price-item { display: flex; justify-content: space-between; padding: 8px 0; font-weight: 600; border-bottom: 1px dashed #ddd; }
-        .promo-box { background: #e6f7ff; border: 2px solid var(--gold); border-radius: 10px; padding: 15px; margin-top: 15px; font-weight: 700; color: var(--aqua-deep); }
+        .price-card h3 { color: var(--navy-deep); font-weight: 800; border-bottom: 2px solid var(--soft-pink); padding-bottom: 15px; margin-bottom: 15px; }
+        .price-item { display: flex; justify-content: space-between; padding: 8px 0; font-weight: 600; border-bottom: 1px dashed #ddd; color: var(--navy-deep); }
+        .promo-box { background: #fdf5f9; border: 2px solid var(--soft-pink); border-radius: 10px; padding: 15px; margin-top: 15px; font-weight: 700; color: var(--navy-deep); }
 
         /* Horarios */
         .schedule-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-        .schedule-card { background: rgba(255,255,255,0.05); border: 1px solid var(--aqua-bright); border-radius: 15px; padding: 20px; backdrop-filter: blur(5px); }
-        .schedule-card h4 { color: var(--gold); margin-bottom: 15px; }
-        .schedule-card li { list-style: none; padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .schedule-card { background: #fff; border: 2px solid var(--soft-blue); border-radius: 15px; padding: 20px; box-shadow: 0 10px 20px rgba(179, 211, 234, 0.2); }
+        .schedule-card h4 { color: var(--gold); margin-bottom: 15px; font-weight: 800; }
+        .schedule-card li { list-style: none; padding: 5px 0; border-bottom: 1px solid #f0f0f0; color: var(--navy-deep); }
 
         /* ======== GALERÍA ======== */
-        .carousel-container { position: relative; max-width: 800px; margin: 0 auto 50px; border: 6px solid var(--gold); border-radius: 15px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+        .carousel-container { position: relative; max-width: 800px; margin: 0 auto 50px; border: 6px solid var(--gold); border-radius: 15px; overflow: hidden; box-shadow: 0 20px 40px rgba(29, 59, 107, 0.2); }
         .carousel-track { display: flex; transition: transform 0.5s ease-in-out; }
         .carousel-item { min-width: 100%; }
         .carousel-item img, .carousel-item video { width: 100%; display: block; max-height: 450px; object-fit: cover; }
-        .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: var(--gold); border: none; color: var(--aqua-deep); padding: 15px 20px; cursor: pointer; font-weight: 900; font-size: 1.5rem; border-radius: 50%; }
-        .carousel-btn:hover { background: #fff; }
+        .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: var(--gold); border: none; color: white; padding: 15px 20px; cursor: pointer; font-weight: 900; font-size: 1.5rem; border-radius: 50%; }
+        .carousel-btn:hover { background: var(--navy-deep); }
         .prev-btn { left: 10px; }
         .next-btn { right: 10px; }
 
         /* ======== EXPERIENCIA ======== */
         .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-bottom: 50px; }
-        .review-card { background: #fff; color: var(--text-dark); padding: 25px; border-radius: 15px; border: 2px solid var(--aqua-bright); }
+        .review-card { background: #fff; padding: 25px; border-radius: 15px; border: 2px solid var(--soft-blue); box-shadow: 0 10px 20px rgba(179, 211, 234, 0.2); }
         .review-card .stars { color: var(--gold); font-size: 1.5rem; }
-        .review-card h4 { color: var(--aqua-deep); margin: 10px 0; }
+        .review-card h4 { color: var(--navy-deep); margin: 10px 0; }
 
-        .review-form { background: #fff; color: var(--text-dark); max-width: 600px; margin: 0 auto; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .review-form h3 { text-align: center; color: var(--aqua-deep); font-weight: 800; }
-        .review-form input, .review-form textarea, .review-form select { width: 100%; padding: 15px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 8px; }
-        .review-form button { width: 100%; padding: 15px; background: var(--aqua-bright); color: #fff; font-weight: 800; border: none; border-radius: 8px; cursor: pointer; }
-        .review-form button:hover { background: var(--aqua-deep); }
+        .review-form { background: #fff; max-width: 600px; margin: 0 auto; padding: 30px; border-radius: 15px; border: 2px solid var(--soft-blue); box-shadow: 0 10px 20px rgba(179, 211, 234, 0.2); }
+        .review-form h3 { text-align: center; color: var(--navy-deep); font-weight: 800; }
+        .review-form input, .review-form textarea, .review-form select { width: 100%; padding: 15px; margin-bottom: 15px; border: 1px solid var(--soft-blue); border-radius: 8px; }
+        .review-form button { width: 100%; padding: 15px; background: var(--gold); color: var(--navy-deep); font-weight: 800; border: none; border-radius: 8px; cursor: pointer; }
+        .review-form button:hover { background: var(--soft-pink); }
 
-        /* ======== CONTACTO GLOBAL ======== */
-        .contact-section { background: #000; padding: 60px 20px; text-align: center; border-top: 5px solid var(--gold); }
-        .contact-grid { display: flex; flex-direction: column; gap: 15px; font-size: 1.2rem; font-weight: 600; margin-bottom: 30px; }
+        /* ======== CONTACTO GLOBAL (WhatsApp Estático) ======== */
+        .contact-section { background: var(--navy-deep); padding: 60px 20px; text-align: center; border-top: 5px solid var(--gold); }
+        .contact-grid { display: flex; flex-direction: column; gap: 15px; font-size: 1.2rem; font-weight: 600; margin-bottom: 30px; color: white; }
         .contact-grid i { color: var(--gold); margin-right: 10px; }
-        .map-container { max-width: 800px; margin: 0 auto; border: 5px solid var(--gold); border-radius: 20px; overflow: hidden; }
+        .map-container { max-width: 800px; margin: 0 auto 30px; border: 5px solid var(--gold); border-radius: 20px; overflow: hidden; }
 
-        /* ======== WHATSAPP FLOTANTE ======== */
-        .floating-wa { position: fixed; bottom: 30px; right: 30px; background: #25D366; color: #fff; padding: 20px 25px; border-radius: 50px; font-weight: 800; display: flex; align-items: center; gap: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 1000; animation: floatBubble 2s ease-in-out infinite; }
-        .floating-wa i { font-size: 2rem; }
+        /* El botón de WhatsApp YA NO VUELA: Está fijo dentro del contacto */
+        .static-whatsapp-btn {
+            display: block;
+            width: fit-content;
+            margin: 0 auto;
+            padding: 18px 40px;
+            background: #25D366; /* Verde WhatsApp */
+            color: white;
+            font-weight: 800;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            text-align: center;
+            border: 3px solid white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: 0.3s;
+        }
+        .static-whatsapp-btn:hover {
+            background: #1da851;
+            transform: scale(1.05);
+        }
 
         /* ======== FOOTER ======== */
         footer { background: #000; text-align: center; padding: 30px; color: #888; font-weight: 600; }
@@ -221,17 +236,17 @@
 
     <!-- TAB 1: INICIO -->
     <div id="home-tab" class="tab-content active">
-        <!-- HERO DINÁMICO -->
+        <!-- HERO ACUÁTICO -->
         <section class="hero">
             <div class="bubbles">
                 <span></span><span></span><span></span><span></span><span></span>
             </div>
             
-            <h1>AquaMar Swimming Gold</h1>
-            <h3>¡Es hora de sumergirse!</h3>
-            <p>Clases para bebés, niños y adultos. Aprende a nadar con la mejor técnica y mucha diversión en San Miguel.</p>
+            <h1>Aqua<span>Mar</span> Swimming Gold</h1>
+            <h3>¡Formando Campeones desde la cuna!</h3>
+            <p>Clases para bebés, niños y adultos en San Miguel. Aprende con la técnica de campeones.</p>
             
-            <!-- BANNER EN MOVIMIENTO -->
+            <!-- BANNER EN MOVIMIENTO (Bordes y texto acordes al club) -->
             <div class="moving-banner">
                 <div class="banner-track">
                     <div class="banner-slide">🔥 ¡CLASE PRUEBA GRATIS!</div>
@@ -246,7 +261,7 @@
                 <i class="fab fa-whatsapp"></i> ¡Quiero mi clase gratis!
             </button>
 
-            <!-- OLAS DE AGUA -->
+            <!-- OLAS ROSAS Y CELESTES -->
             <div class="wave-container">
                 <div class="wave1"></div>
                 <div class="wave2"></div>
@@ -277,14 +292,14 @@
                     <div class="price-item"><span>04 Clases</span> <b>S/ 190</b></div>
                     <div class="price-item"><span>01 Clase</span> <b>S/ 50</b></div>
                 </div>
-                <div class="price-card" style="border-bottom-color: var(--aqua-bright);">
+                <div class="price-card" style="border-bottom-color: var(--soft-blue);">
                     <h3>AquaBebé (4m-3a)</h3>
                     <div class="price-item"><span>12 Clases</span> <b>S/ 290</b></div>
                     <div class="price-item"><span>08 Clases</span> <b>S/ 260</b></div>
                     <div class="price-item"><span>04 Clases</span> <b>S/ 190</b></div>
                     <p style="font-size: 0.8rem; text-align: center;">Acompaña a tu bebé en el agua</p>
                 </div>
-                <div class="price-card" style="background: #f7f9ff;">
+                <div class="price-card" style="background: #fdf5f9;">
                     <h3>🎉 Ofertas en Grupo</h3>
                     <div class="promo-box">2 personas: S/ 260 c/u</div>
                     <div class="promo-box">3 personas: S/ 260 c/u</div>
@@ -315,7 +330,7 @@
                         <li>Domingos: 09:00 - 10:00 am</li>
                     </ul>
                 </div>
-                <div class="schedule-card" style="border-color: var(--gold);">
+                <div class="schedule-card" style="border-color: var(--soft-pink);">
                     <h4>AquaBebé</h4>
                     <ul>
                         <li>Lun-Mie-Vie: 05:00 - 08:00 pm</li>
@@ -397,28 +412,29 @@
         </div>
     </div>
 
-    <!-- CONTACTO GLOBAL -->
+    <!-- CONTACTO GLOBAL (WhatsApp estático dentro de esta sección) -->
     <section id="contacto" class="contact-section">
         <h2 style="color: var(--gold); font-weight: 800; margin-bottom: 20px;">¡Contáctanos!</h2>
         <div class="contact-grid">
             <p><i class="fas fa-map-marker-alt"></i> Jr. prolongación Cusco 379 - San Miguel, Lima</p>
             <p><i class="fas fa-phone-alt"></i> <a href="tel:+51961875074">961 875 074</a></p>
-            <p><i class="fab fa-whatsapp"></i> <a href="https://wa.me/51961875074">+51 961 875 074</a></p>
+            <p><i class="fab fa-whatsapp"></i> +51 961 875 074</p>
         </div>
-        <div class="map-container">
+        
+        <!-- ESTE ES EL BOTÓN ESTÁTICO: NO VUELA -->
+        <a href="https://wa.me/51961875074?text=Hola%20AquaMar!" target="_blank" class="static-whatsapp-btn">
+            <i class="fab fa-whatsapp"></i> ¡Escríbenos por WhatsApp!
+        </a>
+
+        <div class="map-container" style="margin-top: 30px;">
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3901.041315115462!2d-77.0910897!3d-12.0760292!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105c915c8373e59%3A0xe2f422573d4a5d27!2sJr.%20Cusco%20379%2C%20San%20Miguel%2015086!5e0!3m2!1ses!2spe!4v1734567890123!5m2!1ses!2spe" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
         </div>
     </section>
 
     <!-- FOOTER -->
     <footer>
-        <p>&copy; 2026 AquaMar Swimming Gold. Creado con <span>🌊</span> para San Miguel.</p>
+        <p>&copy; 2026 AquaMar Swimming Gold. Formando Campeones.</p>
     </footer>
-
-    <!-- WHATSAPP FLOTANTE -->
-    <a href="https://wa.me/51961875074?text=Hola%20AquaMar!" target="_blank" class="floating-wa">
-        <i class="fab fa-whatsapp"></i> ¡Escríbenos!
-    </a>
 
     <!-- SCRIPTS -->
     <script>
@@ -450,7 +466,7 @@
 
         function submitReview(event) {
             event.preventDefault();
-            alert("¡Gracias! Tu comentario ha sido recibido. (Para guardarlo necesitaríamos un backend, pero la página está lista).");
+            alert("¡Gracias! Tu comentario ha sido recibido.");
             document.querySelector('.review-form form').reset();
         }
     </script>

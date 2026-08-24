@@ -3,75 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AquaMar Swimming Gold - Promociones del Mes</title>
+    <title>AquaMar Swimming Gold</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --navy-deep: #102a43; /* Azul oscuro de fondo */
-            --aqua-light: #a0d8ef; /* Celeste claro */
-            --aqua-bright: #2d8dbd; /* Azul agua */
-            --gold: #f3b229; /* Dorado */
-            --purple: #6b2d6b; /* Morado (referencia de imágenes) */
+            --navy-deep: #102a43; 
+            --aqua-bright: #2d8dbd;
+            --gold: #f3b229;
             --text-light: #ffffff;
-            
-            /* Marca de agua con el logo */
-            --logo-bg: url('logo.jpg'); 
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
             font-family: 'Poppins', sans-serif; 
             color: var(--text-light); 
-            background-color: var(--navy-deep);
-            /* Marca de agua repetida en fondo */
-            background-image: var(--logo-bg);
-            background-repeat: repeat;
-            background-size: 250px; /* Tamaño de la marca de agua */
-            opacity: 1; 
+            background-color: var(--navy-deep); 
+            /* ELIMINADO: ya no hay marca de agua repetida */
         }
         a { text-decoration: none; color: inherit; }
 
-        /* ============ NAVBAR ============ */
+        /* ============ NAVBAR (Logo abajo a la izquierda) ============ */
         .navbar {
             position: sticky; top: 0;
-            background: rgba(16, 42, 67, 0.85); /* Fondo semitransparente */
-            backdrop-filter: blur(8px); /* Efecto vidrio */
+            background: rgba(16, 42, 67, 0.95); 
+            backdrop-filter: blur(8px);
             padding: 10px 30px;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column; /* Apila el logo y el menú verticalmente */
+            align-items: flex-start; /* Alinea todo a la izquierda */
             z-index: 1000;
             border-bottom: 2px solid var(--gold);
         }
-        .logo img {
-            height: 55px;
-            border-radius: 50%;
-            border: 2px solid var(--gold);
+        .logo-area {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px; /* Espacio entre logo y menú */
+            cursor: pointer;
         }
-        .logo-text { font-weight: 800; font-size: 1.8rem; margin-left: 15px; color: white; cursor: pointer;}
-        .logo-text span { color: var(--gold); }
-        
-        .nav-links { display: flex; gap: 20px; font-weight: 600; }
-        .nav-links a { color: white; transition: 0.3s; }
+        .logo-area img {
+            height: 50px; /* Tamaño pequeño y elegante */
+            width: auto;
+            margin-right: 10px;
+            border-radius: 5px;
+        }
+        .logo-area span { font-size: 1.2rem; font-weight: 800; color: white; }
+        .logo-area span span { color: var(--gold); }
+
+        .nav-links { display: flex; gap: 25px; font-weight: 600; font-size: 1.1rem; }
+        .nav-links a { color: white; transition: 0.3s; cursor: pointer; }
         .nav-links a:hover, .nav-links a.active { color: var(--gold); }
 
-        .hamburger { display: none; color: var(--gold); font-size: 2rem; cursor: pointer; }
+        .hamburger { display: none; color: var(--gold); font-size: 2rem; cursor: pointer; position: absolute; top: 20px; right: 20px;}
         @media (max-width: 768px) {
+            .navbar { padding: 15px; }
             .hamburger { display: block; }
             .nav-links {
                 display: none; flex-direction: column; width: 100%; position: absolute;
-                top: 75px; left: 0; background: var(--navy-deep); padding: 20px;
+                top: 85px; left: 0; background: var(--navy-deep); padding: 20px;
                 text-align: center;
             }
             .nav-links.active { display: flex; }
         }
 
-        /* ============ HERO CAROUSEL (ESTILO COOLBOX) ============ */
+        /* ============ CARRUSEL PRINCIPAL (Estilo Coolbox pero contenido) ============ */
+        .carousel-wrapper {
+            max-width: 1100px;
+            margin: 30px auto 0;
+            padding: 0 20px;
+        }
         .hero-carousel {
             position: relative;
             width: 100%;
-            height: 480px;
+            height: 400px;
             overflow: hidden;
+            border: 5px solid var(--gold);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             background: #000;
         }
         .hero-slide {
@@ -79,51 +86,49 @@
             inset: 0;
             width: 100%; height: 100%;
             opacity: 0;
-            transition: opacity 1s ease-in-out;
+            transition: opacity 0.8s ease-in-out;
             z-index: 1;
         }
         .hero-slide.active { opacity: 1; z-index: 2; }
-        
         .hero-slide img {
             width: 100%; height: 100%;
-            object-fit: cover; /* Ajusta la imagen sin deformar */
+            object-fit: contain; /* La imagen completa se ve sin cortar ni deformar */
+            background: #000;
         }
         
-        /* Placeholder en caso de que falte algún banner */
         .placeholder {
+            position: absolute; inset: 0;
             display: flex; justify-content: center; align-items: center;
             background: linear-gradient(135deg, var(--aqua-bright), var(--navy-deep));
-            color: rgba(255,255,255,0.6);
-            font-size: 1.8rem;
+            color: rgba(255,255,255,0.7);
+            font-size: 1.5rem;
             font-weight: 700;
             text-align: center;
             padding: 40px;
         }
 
-        /* Flechas de navegación */
         .hero-arrow {
             position: absolute;
             top: 50%; transform: translateY(-50%);
-            background: rgba(255,255,255,0.2); /* Semitransparente */
-            border: 2px solid rgba(255,255,255,0.4);
-            color: white; padding: 15px 20px; cursor: pointer;
-            font-size: 1.8rem; z-index: 10; border-radius: 50%;
-            transition: 0.3s; backdrop-filter: blur(2px);
+            background: rgba(255,255,255,0.2); 
+            border: 2px solid rgba(255,255,255,0.3);
+            color: white; padding: 12px 18px; cursor: pointer;
+            font-size: 1.5rem; z-index: 10; border-radius: 50%;
+            transition: 0.3s;
         }
         .hero-arrow:hover { background: var(--gold); border-color: var(--gold); color: var(--navy-deep); }
-        .prev-btn { left: 20px; }
-        .next-btn { right: 20px; }
+        .prev-btn { left: 15px; }
+        .next-btn { right: 15px; }
 
-        /* Mini-botones circulares semitransparentes */
         .hero-dots {
             position: absolute;
-            bottom: 20px; left: 50%;
+            bottom: 15px; left: 50%;
             transform: translateX(-50%);
             z-index: 10;
-            display: flex; gap: 15px;
+            display: flex; gap: 12px;
         }
         .dot {
-            width: 15px; height: 15px;
+            width: 12px; height: 12px;
             background: rgba(255,255,255,0.5);
             border: 2px solid white;
             border-radius: 50%;
@@ -133,32 +138,30 @@
         .dot.active { 
             background: var(--gold); 
             border-color: var(--gold); 
-            transform: scale(1.4); 
+            transform: scale(1.3); 
             box-shadow: 0 0 10px var(--gold);
         }
 
         @media (max-width: 768px) {
-            .hero-carousel { height: 300px; }
-            .hero-arrow { padding: 10px 12px; font-size: 1.3rem; }
+            .hero-carousel { height: 250px; }
+            .hero-arrow { padding: 8px 10px; font-size: 1.2rem; }
             .placeholder { font-size: 1.2rem; }
         }
 
-        /* ============ ACUÁTICO (Hero debajo del carrusel) ============ */
+        /* ============ HERO ACUÁTICO (Debajo del carrusel) ============ */
         .aqua-hero {
-            padding: 80px 20px 60px;
+            padding: 60px 20px 40px;
             text-align: center;
-            background: linear-gradient(180deg, var(--navy-deep), var(--aqua-bright));
-            position: relative;
         }
-        .aqua-hero h1 { font-size: 3.8rem; font-weight: 800; text-shadow: 3px 3px 0px rgba(0,0,0,0.3); color: white; }
+        .aqua-hero h1 { font-size: 3.5rem; font-weight: 800; text-shadow: 3px 3px 0px rgba(0,0,0,0.3); color: white; }
         .aqua-hero h1 span { color: var(--gold); }
-        .aqua-hero p { font-size: 1.4rem; margin-top: 15px; }
+        .aqua-hero p { font-size: 1.2rem; margin-top: 10px; color: #a0c4d8; }
         .cta-btn {
             display: inline-block;
-            margin-top: 30px;
+            margin-top: 25px;
             background: var(--gold); color: var(--navy-deep);
             padding: 15px 40px; border-radius: 50px;
-            font-size: 1.3rem; font-weight: 800;
+            font-size: 1.2rem; font-weight: 800;
             border: 3px solid white;
             transition: 0.3s;
         }
@@ -166,75 +169,68 @@
         .cta-btn i { margin-right: 10px; }
 
         /* ============ SECCIONES ============ */
-        .tab-content { display: none; padding: 60px 20px; }
+        .tab-content { display: none; padding: 30px 20px; }
         .tab-content.active { display: block; }
         .container { max-width: 1100px; margin: 0 auto; }
-        .section-title { text-align: center; font-size: 2.8rem; font-weight: 800; color: var(--gold); margin-bottom: 40px; text-shadow: 2px 2px 0px var(--navy-deep); }
+        .section-title { text-align: center; font-size: 2.5rem; font-weight: 800; color: var(--gold); margin-bottom: 30px; }
 
         .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 25px; }
         .service-card {
-            background: rgba(255,255,255,0.1); padding: 35px; border-radius: 15px;
-            text-align: center; border: 1px solid rgba(255,255,255,0.2);
-            transition: 0.3s; backdrop-filter: blur(4px);
+            background: rgba(255,255,255,0.05); padding: 30px; border-radius: 15px;
+            text-align: center; border: 1px solid rgba(255,255,255,0.1);
+            transition: 0.3s;
         }
         .service-card:hover { transform: translateY(-10px); border-color: var(--gold); }
-        .service-card i { font-size: 2.8rem; color: var(--gold); margin-bottom: 15px; }
-        .service-card h4 { font-size: 1.2rem; }
+        .service-card i { font-size: 2.5rem; color: var(--gold); margin-bottom: 10px; }
+        .service-card h4 { font-size: 1.1rem; }
 
         .pricing-wrapper { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
         .price-card {
-            background: rgba(255,255,255,0.1); border-radius: 20px; padding: 30px;
+            background: rgba(255,255,255,0.05); border-radius: 20px; padding: 30px;
             border-bottom: 5px solid var(--gold);
-            backdrop-filter: blur(5px);
         }
-        .price-card h3 { color: var(--gold); margin-bottom: 15px; border-bottom: 1px solid white; padding-bottom: 10px;}
-        .price-item { display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: 600; border-bottom: 1px dashed rgba(255,255,255,0.2); padding-bottom: 8px; }
-        .promo-box { background: rgba(255,255,255,0.2); border: 2px solid var(--purple); padding: 15px; border-radius: 10px; margin: 10px 0; text-align: center; }
+        .price-card h3 { color: var(--gold); margin-bottom: 15px; font-size: 1.3rem; }
+        .price-item { display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: 600; color: #d1e4f0; border-bottom: 1px dashed rgba(255,255,255,0.2); padding-bottom: 8px; }
 
         .schedule-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-        .schedule-card { background: rgba(255,255,255,0.1); border-radius: 15px; padding: 20px; border: 1px solid white; }
+        .schedule-card { background: rgba(255,255,255,0.05); border-radius: 15px; padding: 20px; }
         .schedule-card h4 { color: var(--gold); margin-bottom: 15px; }
-        .schedule-card li { list-style: none; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.2); }
+        .schedule-card li { list-style: none; padding: 8px 0; color: #d1e4f0; border-bottom: 1px solid rgba(255,255,255,0.1); }
 
         /* Galería */
-        .carousel-container { position: relative; max-width: 800px; margin: 0 auto; border: 5px solid var(--gold); border-radius: 15px; overflow: hidden; background: black; }
+        .carousel-container { position: relative; max-width: 800px; margin: 0 auto; border: 4px solid var(--gold); border-radius: 15px; overflow: hidden; background: black; }
         .carousel-track { display: flex; transition: transform 0.5s ease; }
         .carousel-item { min-width: 100%; }
-        .carousel-item img, .carousel-item video { width: 100%; max-height: 450px; object-fit: cover; display: block; }
-        .car-btn { position: absolute; top: 50%; transform: translateY(-50%); background: var(--gold); border: none; padding: 15px; cursor: pointer; font-size: 1.5rem; border-radius: 50%; }
+        .carousel-item img, .carousel-item video { width: 100%; max-height: 450px; object-fit: contain; display: block; }
+        .car-btn { position: absolute; top: 50%; transform: translateY(-50%); background: var(--gold); border: none; padding: 12px; cursor: pointer; font-size: 1.4rem; border-radius: 50%; }
         .car-btn:hover { background: white; }
 
         /* Experiencia */
-        .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-bottom: 60px; }
-        .review-card { background: rgba(255,255,255,0.1); padding: 25px; border-radius: 15px; border: 1px solid white; }
-        .review-card .stars { color: var(--gold); font-size: 1.5rem; }
-        .review-card h4 { margin: 10px 0; }
-        .review-form { background: rgba(255,255,255,0.1); max-width: 600px; margin: 0 auto; padding: 30px; border-radius: 20px; }
-        .review-form input, .review-form textarea, .review-form select { width: 100%; padding: 15px; margin-bottom: 15px; background: rgba(255,255,255,0.9); border: none; border-radius: 8px; color: #333; }
+        .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-bottom: 50px; }
+        .review-card { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 15px; color: #d1e4f0; }
+        .review-card .stars { color: var(--gold); font-size: 1.3rem; }
+        .review-card h4 { color: white; margin: 10px 0; }
+        .review-form { background: rgba(255,255,255,0.05); max-width: 600px; margin: 0 auto; padding: 30px; border-radius: 20px; }
+        .review-form input, .review-form textarea, .review-form select { width: 100%; padding: 15px; margin-bottom: 15px; background: rgba(255,255,255,0.9); border: none; border-radius: 8px; color: #333; font-family: 'Poppins', sans-serif; }
         .review-form button { width: 100%; padding: 15px; background: var(--gold); border: none; color: var(--navy-deep); font-weight: 800; border-radius: 10px; cursor: pointer; }
 
         /* Contacto */
-        .contact-section { background: #0a1e30; padding: 60px 20px; text-align: center; border-top: 5px solid var(--gold); }
-        .contact-grid { display: flex; flex-direction: column; gap: 15px; font-size: 1.3rem; font-weight: 600; margin-bottom: 30px; }
+        .contact-section { background: #0a1e30; padding: 50px 20px; text-align: center; border-top: 3px solid var(--gold); }
+        .contact-grid { display: flex; flex-direction: column; gap: 15px; font-size: 1.2rem; font-weight: 600; margin-bottom: 25px; }
         .contact-grid i { color: var(--gold); }
-        .static-whatsapp-btn {
-            display: inline-block; padding: 20px 50px; background: #25D366; color: white;
-            font-size: 1.3rem; font-weight: 800; border-radius: 50px;
-            border: 3px solid white; margin-bottom: 40px; transition: 0.3s;
-        }
-        .static-whatsapp-btn:hover { transform: scale(1.05); }
-        .map-container { max-width: 800px; margin: 0 auto; border: 5px solid var(--gold); border-radius: 20px; overflow: hidden; }
-        footer { background: #000; padding: 30px; text-align: center; color: #aaa; font-weight: 500; }
+        .static-whatsapp-btn { display: inline-block; padding: 15px 40px; background: #25D366; color: white; font-size: 1.2rem; font-weight: 800; border-radius: 50px; border: 2px solid white; margin-bottom: 30px; }
+        .map-container { max-width: 800px; margin: 0 auto; border: 3px solid var(--gold); border-radius: 15px; overflow: hidden; }
+        footer { background: #000; padding: 20px; text-align: center; color: #888; }
         footer span { color: var(--gold); }
     </style>
 </head>
 <body>
 
-    <!-- NAVBAR CON LOGO -->
+    <!-- NAVBAR: LOGO ABAJO IZQUIERDA, MENÚ DEBAJO -->
     <nav class="navbar">
-        <div style="display: flex; align-items: center;">
-            <img src="logo.jpg" alt="Logo AquaMar" class="logo-img">
-            <span class="logo-text" onclick="switchTab('home')">Aqua<span>Mar</span></span>
+        <div class="logo-area" onclick="switchTab('home')">
+            <img src="logo.jpg" alt="Logo AquaMar">
+            <span>Aqua<span>Mar</span></span>
         </div>
         <div class="nav-links" id="navLinks">
             <a onclick="switchTab('home')" class="active" id="nav-home">Inicio</a>
@@ -244,61 +240,39 @@
         <div class="hamburger" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
     </nav>
 
-    <!-- TAB 1: INICIO -->
+    <!-- CONTENIDO -->
     <div id="home-tab" class="tab-content active">
 
-        <!-- CARRUSEL PRINCIPAL ESTILO COOLBOX -->
-        <div class="hero-carousel" id="mainCarousel">
-            <!-- Banner 1 -->
-            <div class="hero-slide active">
-                <img src="banner1.jpg" alt="Promoción 1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <!-- CARRUSEL CONTENIDO (Sin invadir la pantalla) -->
+        <div class="carousel-wrapper">
+            <div class="hero-carousel" id="mainCarousel">
+                <div class="hero-slide active"><img src="banner1.jpg" alt="Promo 1"></div>
+                <div class="hero-slide"><img src="banner2.jpg" alt="Promo 2"></div>
+                <div class="hero-slide"><img src="banner3.jpg" alt="Promo 3"></div>
+                <div class="hero-slide"><img src="banner4.jpg" alt="Promo 4"></div>
+                <div class="hero-slide"><img src="banner5.jpg" alt="Promo 5"></div>
+                <div class="hero-slide"><img src="banner6.jpg" alt="Promo 6"></div>
+                
                 <div class="placeholder" style="display: none;">Pronto más promociones del mes!</div>
-            </div>
-            <!-- Banner 2 -->
-            <div class="hero-slide">
-                <img src="banner2.jpg" alt="Promoción 2" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                <div class="placeholder" style="display: none;">Pronto más promociones del mes!</div>
-            </div>
-            <!-- Banner 3 -->
-            <div class="hero-slide">
-                <img src="banner3.jpg" alt="Promoción 3" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                <div class="placeholder" style="display: none;">Pronto más promociones del mes!</div>
-            </div>
-            <!-- Banner 4 -->
-            <div class="hero-slide">
-                <img src="banner4.jpg" alt="Promoción 4" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                <div class="placeholder" style="display: none;">Pronto más promociones del mes!</div>
-            </div>
-            <!-- Banner 5 -->
-            <div class="hero-slide">
-                <img src="banner5.jpg" alt="Promoción 5" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                <div class="placeholder" style="display: none;">Pronto más promociones del mes!</div>
-            </div>
-            <!-- Banner 6 -->
-            <div class="hero-slide">
-                <img src="banner6.jpg" alt="Promoción 6" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                <div class="placeholder" style="display: none;">Pronto más promociones del mes!</div>
-            </div>
 
-            <!-- Flechas -->
-            <button class="hero-arrow prev-btn" onclick="moveSlide(-1)">❮</button>
-            <button class="hero-arrow next-btn" onclick="moveSlide(1)">❯</button>
+                <button class="hero-arrow prev-btn" onclick="moveSlide(-1)">❮</button>
+                <button class="hero-arrow next-btn" onclick="moveSlide(1)">❯</button>
 
-            <!-- Mini botones semitransparentes -->
-            <div class="hero-dots">
-                <span class="dot active" onclick="currentSlide(0)"></span>
-                <span class="dot" onclick="currentSlide(1)"></span>
-                <span class="dot" onclick="currentSlide(2)"></span>
-                <span class="dot" onclick="currentSlide(3)"></span>
-                <span class="dot" onclick="currentSlide(4)"></span>
-                <span class="dot" onclick="currentSlide(5)"></span>
+                <div class="hero-dots">
+                    <span class="dot active" onclick="currentSlide(0)"></span>
+                    <span class="dot" onclick="currentSlide(1)"></span>
+                    <span class="dot" onclick="currentSlide(2)"></span>
+                    <span class="dot" onclick="currentSlide(3)"></span>
+                    <span class="dot" onclick="currentSlide(4)"></span>
+                    <span class="dot" onclick="currentSlide(5)"></span>
+                </div>
             </div>
         </div>
 
         <!-- HERO ACUÁTICO -->
         <section class="aqua-hero">
             <h1>Aqua<span>Mar</span> Swimming Gold</h1>
-            <p>Clases para Bebés, Niños, Adultos, Terapia y Competitivo. ¡Formando campeones!</p>
+            <p>Clases para Bebés, Niños, Adultos, Terapia y Competitivo</p>
             <a href="https://wa.me/51961875074" target="_blank" class="cta-btn">
                 <i class="fab fa-whatsapp"></i> ¡Agenda tu clase gratis!
             </a>
@@ -339,14 +313,9 @@
                     <div class="price-item"><span>12 Clases</span> <b>S/ 290</b></div>
                     <div class="price-item"><span>08 Clases</span> <b>S/ 260</b></div>
                     <div class="price-item"><span>04 Clases</span> <b>S/ 190</b></div>
-                    <div class="price-item" style="color: var(--gold);"><span>🎉 Niños 12 clases</span> <b>S/ 240</b></div>
-                    <div class="price-item" style="color: var(--gold);"><span>Niños 08 clases</span> <b>S/ 190</b></div>
-                    <div class="price-item" style="color: var(--gold);"><span>Niños 04 clases</span> <b>S/ 105</b></div>
-                </div>
-            </div>
-            <div style="text-align: center; margin-top: 30px;">
-                <div class="promo-box" style="max-width: 400px; margin: 0 auto; font-size: 1.4rem; font-weight: 800;">
-                    🏆 Oferta Especial: ¡1 Clase de Prueba GRATIS! 
+                    <div class="price-item" style="color: #f3b229;"><span>🎉 Niños 12 clases</span> <b>S/ 240</b></div>
+                    <div class="price-item" style="color: #f3b229;"><span>Niños 08 clases</span> <b>S/ 190</b></div>
+                    <div class="price-item" style="color: #f3b229;"><span>Niños 04 clases</span> <b>S/ 105</b></div>
                 </div>
             </div>
         </div>
@@ -386,7 +355,7 @@
         </div>
     </div>
 
-    <!-- TAB 2: GALERÍA -->
+    <!-- GALERÍA -->
     <div id="gallery-tab" class="tab-content">
         <h2 class="section-title">Galería de Imágenes</h2>
         <div class="carousel-container" id="img-carousel">
@@ -417,7 +386,7 @@
         </div>
     </div>
 
-    <!-- TAB 3: EXPERIENCIA -->
+    <!-- EXPERIENCIA -->
     <div id="reviews-tab" class="tab-content">
         <h2 class="section-title">Experiencia de Alumnos</h2>
         <div class="reviews-grid">
@@ -475,7 +444,7 @@
             document.getElementById('nav-' + tabName).classList.add('active');
         }
 
-        // ============ CARRUSEL PRINCIPAL (Fade + Dots) ============
+        // Carrusel Principal
         let slideIndex = 0;
         const slides = document.querySelectorAll('.hero-slide');
         const dots = document.querySelectorAll('.dot');
@@ -503,7 +472,7 @@
             slideInterval = setInterval(() => moveSlide(1), 5000);
         }
 
-        // ============ GALERÍAS (Carrusel deslizante) ============
+        // Galerías
         function moveGallery(direction, sliderId) {
             const track = document.getElementById(sliderId).querySelector('.carousel-track');
             const items = track.querySelectorAll('.carousel-item');

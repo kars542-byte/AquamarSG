@@ -3,211 +3,239 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AquaMar Swimming Gold</title>
+    <title>AquaMar Swimming Gold - Promociones del Mes</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --navy-deep: #1d3b6b;
-            --gold: #c9963f;
-            --soft-pink: #f4c7e0;
-            --soft-purple: #e1bee7;
-            --soft-blue: #b3d3ea;
-            --bg-white: #ffffff;
-            --text-dark: #1d3b6b;
+            --navy-deep: #102a43; /* Azul oscuro de fondo */
+            --aqua-light: #a0d8ef; /* Celeste claro */
+            --aqua-bright: #2d8dbd; /* Azul agua */
+            --gold: #f3b229; /* Dorado */
+            --purple: #6b2d6b; /* Morado (referencia de imágenes) */
+            --text-light: #ffffff;
+            
+            /* Marca de agua con el logo */
+            --logo-bg: url('logo.jpg'); 
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Poppins', sans-serif; background: var(--bg-white); color: var(--text-dark); overflow-x: hidden; }
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            color: var(--text-light); 
+            background-color: var(--navy-deep);
+            /* Marca de agua repetida en fondo */
+            background-image: var(--logo-bg);
+            background-repeat: repeat;
+            background-size: 250px; /* Tamaño de la marca de agua */
+            opacity: 1; 
+        }
         a { text-decoration: none; color: inherit; }
-        
-        @keyframes floatBubble {
-            0% { transform: translateY(0) scale(1); opacity: 0; }
-            10% { opacity: 0.6; }
-            100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
-        }
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        @keyframes waveMove {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-        @keyframes slideBanner {
-            0%, 20% { transform: translateX(0); }
-            25%, 45% { transform: translateX(-100%); }
-            50%, 70% { transform: translateX(-200%); }
-            75%, 95% { transform: translateX(-300%); }
-            100% { transform: translateX(-400%); }
-        }
 
-        /* NAVBAR */
+        /* ============ NAVBAR ============ */
         .navbar {
-            background: var(--navy-deep);
-            padding: 15px 30px;
+            position: sticky; top: 0;
+            background: rgba(16, 42, 67, 0.85); /* Fondo semitransparente */
+            backdrop-filter: blur(8px); /* Efecto vidrio */
+            padding: 10px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: sticky; top: 0; z-index: 1000;
-            border-bottom: 3px solid var(--gold);
+            z-index: 1000;
+            border-bottom: 2px solid var(--gold);
         }
-        .logo { font-weight: 800; font-size: 1.6rem; cursor: pointer; color: white; }
-        .logo span { color: var(--gold); }
-        .nav-links { display: flex; gap: 20px; }
-        .nav-links a { font-weight: 600; color: white; transition: 0.3s; }
-        .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+        .logo img {
+            height: 55px;
+            border-radius: 50%;
+            border: 2px solid var(--gold);
+        }
+        .logo-text { font-weight: 800; font-size: 1.8rem; margin-left: 15px; color: white; cursor: pointer;}
+        .logo-text span { color: var(--gold); }
         
-        .hamburger { display: none; font-size: 2rem; color: var(--gold); cursor: pointer; }
+        .nav-links { display: flex; gap: 20px; font-weight: 600; }
+        .nav-links a { color: white; transition: 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+
+        .hamburger { display: none; color: var(--gold); font-size: 2rem; cursor: pointer; }
         @media (max-width: 768px) {
             .hamburger { display: block; }
             .nav-links {
                 display: none; flex-direction: column; width: 100%; position: absolute;
-                top: 70px; left: 0; background: var(--navy-deep); padding: 20px;
-                text-align: center; border-bottom: 3px solid var(--gold);
+                top: 75px; left: 0; background: var(--navy-deep); padding: 20px;
+                text-align: center;
             }
             .nav-links.active { display: flex; }
         }
 
-        /* HERO */
-        .hero {
+        /* ============ HERO CAROUSEL (ESTILO COOLBOX) ============ */
+        .hero-carousel {
             position: relative;
-            min-height: 100vh;
-            padding-bottom: 180px; /* Espacio extra abajo para las olas */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background: linear-gradient(135deg, #ffffff 0%, var(--soft-pink) 25%, var(--soft-purple) 50%, var(--soft-blue) 75%, #ffffff 100%);
-            background-size: 300% 300%;
-            animation: gradientShift 15s ease infinite;
+            width: 100%;
+            height: 480px;
             overflow: hidden;
+            background: #000;
         }
-        .bubbles span {
-            position: absolute; bottom: -50px;
-            background: rgba(255,255,255,0.5);
-            border: 1px solid var(--soft-blue);
-            border-radius: 50%;
-            animation: floatBubble 10s linear infinite;
+        .hero-slide {
+            position: absolute;
+            inset: 0;
+            width: 100%; height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            z-index: 1;
         }
-        .bubbles span:nth-child(1) { left: 10%; width: 20px; height: 20px; animation-duration: 6s; }
-        .bubbles span:nth-child(2) { left: 30%; width: 40px; height: 40px; animation-duration: 9s; }
-        .bubbles span:nth-child(3) { left: 50%; width: 15px; height: 15px; animation-duration: 5s; }
-        .bubbles span:nth-child(4) { left: 70%; width: 30px; height: 30px; animation-duration: 8s; }
-        .bubbles span:nth-child(5) { left: 90%; width: 25px; height: 25px; animation-duration: 7s; }
+        .hero-slide.active { opacity: 1; z-index: 2; }
+        
+        .hero-slide img {
+            width: 100%; height: 100%;
+            object-fit: cover; /* Ajusta la imagen sin deformar */
+        }
+        
+        /* Placeholder en caso de que falte algún banner */
+        .placeholder {
+            display: flex; justify-content: center; align-items: center;
+            background: linear-gradient(135deg, var(--aqua-bright), var(--navy-deep));
+            color: rgba(255,255,255,0.6);
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-align: center;
+            padding: 40px;
+        }
 
-        /* AQUÍ ESTÁ LA CORRECCIÓN: Texto siempre por encima de las olas */
-        .hero h1, .hero h3, .hero p, .cta-btn, .moving-banner {
-            position: relative;
+        /* Flechas de navegación */
+        .hero-arrow {
+            position: absolute;
+            top: 50%; transform: translateY(-50%);
+            background: rgba(255,255,255,0.2); /* Semitransparente */
+            border: 2px solid rgba(255,255,255,0.4);
+            color: white; padding: 15px 20px; cursor: pointer;
+            font-size: 1.8rem; z-index: 10; border-radius: 50%;
+            transition: 0.3s; backdrop-filter: blur(2px);
+        }
+        .hero-arrow:hover { background: var(--gold); border-color: var(--gold); color: var(--navy-deep); }
+        .prev-btn { left: 20px; }
+        .next-btn { right: 20px; }
+
+        /* Mini-botones circulares semitransparentes */
+        .hero-dots {
+            position: absolute;
+            bottom: 20px; left: 50%;
+            transform: translateX(-50%);
             z-index: 10;
+            display: flex; gap: 15px;
+        }
+        .dot {
+            width: 15px; height: 15px;
+            background: rgba(255,255,255,0.5);
+            border: 2px solid white;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .dot.active { 
+            background: var(--gold); 
+            border-color: var(--gold); 
+            transform: scale(1.4); 
+            box-shadow: 0 0 10px var(--gold);
         }
 
-        .hero h1 {
-            font-size: 4rem; font-weight: 800; color: var(--navy-deep);
-            text-shadow: 2px 2px 0px rgba(255,255,255,0.8);
+        @media (max-width: 768px) {
+            .hero-carousel { height: 300px; }
+            .hero-arrow { padding: 10px 12px; font-size: 1.3rem; }
+            .placeholder { font-size: 1.2rem; }
         }
-        .hero h1 span { color: var(--gold); }
-        .hero h3 { font-size: 1.4rem; margin-bottom: 15px; font-weight: 600; color: var(--navy-deep); }
-        .hero p { max-width: 600px; font-weight: 500; margin-bottom: 30px; color: var(--navy-deep); }
 
-        .moving-banner {
-            background: var(--navy-deep); width: 100%; overflow: hidden;
-            padding: 12px 0; margin-bottom: 30px; border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(29, 59, 107, 0.2);
-            border: 2px solid var(--gold);
+        /* ============ ACUÁTICO (Hero debajo del carrusel) ============ */
+        .aqua-hero {
+            padding: 80px 20px 60px;
+            text-align: center;
+            background: linear-gradient(180deg, var(--navy-deep), var(--aqua-bright));
+            position: relative;
         }
-        .banner-track {
-            display: flex; width: 500%; animation: slideBanner 15s linear infinite;
-            color: var(--gold); font-weight: 800; font-size: 1.3rem;
-        }
-        .banner-slide { width: 20%; flex-shrink: 0; text-align: center; }
-
+        .aqua-hero h1 { font-size: 3.8rem; font-weight: 800; text-shadow: 3px 3px 0px rgba(0,0,0,0.3); color: white; }
+        .aqua-hero h1 span { color: var(--gold); }
+        .aqua-hero p { font-size: 1.4rem; margin-top: 15px; }
         .cta-btn {
+            display: inline-block;
+            margin-top: 30px;
             background: var(--gold); color: var(--navy-deep);
-            padding: 18px 45px; border-radius: 50px; font-weight: 800;
-            font-size: 1.2rem; border: 3px solid var(--navy-deep); cursor: pointer;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15); transition: 0.3s;
+            padding: 15px 40px; border-radius: 50px;
+            font-size: 1.3rem; font-weight: 800;
+            border: 3px solid white;
+            transition: 0.3s;
         }
         .cta-btn:hover { transform: scale(1.05); background: white; }
+        .cta-btn i { margin-right: 10px; }
 
-        /* AQUÍ ESTÁ LA CORRECCIÓN: Olas con transparencia real */
-        .wave-container { position: absolute; bottom: 0; left: 0; width: 100%; line-height: 0; z-index: 1; }
-        .wave1 { width: 200%; height: 100px; background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg"><path d="M0,60 C150,110 350,0 600,30 C850,60 1050,0 1200,30 L1200,120 L0,120 Z" fill="%23ffffff"/></svg>') repeat-x; animation: waveMove 8s linear infinite; opacity: 0.4; }
-        .wave2 { width: 200%; height: 100px; background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg"><path d="M0,60 C150,110 350,0 600,30 C850,60 1050,0 1200,30 L1200,120 L0,120 Z" fill="%23f4c7e0"/></svg>') repeat-x; animation: waveMove 12s linear infinite; opacity: 0.6; }
-        .wave3 { width: 200%; height: 100px; background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg"><path d="M0,60 C150,110 350,0 600,30 C850,60 1050,0 1200,30 L1200,120 L0,120 Z" fill="%23b3d3ea"/></svg>') repeat-x; animation: waveMove 16s linear infinite; opacity: 0.8; }
-
-        /* SECCIONES */
-        .tab-content { display: none; padding: 50px 20px; }
+        /* ============ SECCIONES ============ */
+        .tab-content { display: none; padding: 60px 20px; }
         .tab-content.active { display: block; }
         .container { max-width: 1100px; margin: 0 auto; }
-        .section-title { text-align: center; font-size: 2.6rem; font-weight: 800; margin-bottom: 30px; color: var(--navy-deep); }
-        .section-title span { color: var(--gold); }
+        .section-title { text-align: center; font-size: 2.8rem; font-weight: 800; color: var(--gold); margin-bottom: 40px; text-shadow: 2px 2px 0px var(--navy-deep); }
 
         .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 25px; }
         .service-card {
-            background: #fff; padding: 40px 20px; border-radius: 20px; text-align: center;
-            border: 2px solid var(--soft-blue); transition: 0.3s;
-            box-shadow: 0 10px 25px rgba(179, 211, 234, 0.3);
+            background: rgba(255,255,255,0.1); padding: 35px; border-radius: 15px;
+            text-align: center; border: 1px solid rgba(255,255,255,0.2);
+            transition: 0.3s; backdrop-filter: blur(4px);
         }
         .service-card:hover { transform: translateY(-10px); border-color: var(--gold); }
-        .service-card i { font-size: 3rem; color: var(--soft-purple); margin-bottom: 15px; }
-        .service-card h4 { color: var(--navy-deep); }
+        .service-card i { font-size: 2.8rem; color: var(--gold); margin-bottom: 15px; }
+        .service-card h4 { font-size: 1.2rem; }
 
         .pricing-wrapper { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
-        .price-card { background: #fff; border-radius: 20px; padding: 30px; border-bottom: 6px solid var(--gold); box-shadow: 0 15px 30px rgba(179, 211, 234, 0.3); border: 1px solid var(--soft-blue); transition: 0.3s; }
-        .price-card:hover { transform: translateY(-10px); }
-        .price-card h3 { color: var(--navy-deep); font-weight: 800; border-bottom: 2px solid var(--soft-pink); padding-bottom: 15px; margin-bottom: 15px; }
-        .price-item { display: flex; justify-content: space-between; padding: 8px 0; font-weight: 600; border-bottom: 1px dashed #ddd; color: var(--navy-deep); }
-        .promo-box { background: #fdf5f9; border: 2px solid var(--soft-pink); border-radius: 10px; padding: 15px; margin-top: 15px; font-weight: 700; color: var(--navy-deep); }
+        .price-card {
+            background: rgba(255,255,255,0.1); border-radius: 20px; padding: 30px;
+            border-bottom: 5px solid var(--gold);
+            backdrop-filter: blur(5px);
+        }
+        .price-card h3 { color: var(--gold); margin-bottom: 15px; border-bottom: 1px solid white; padding-bottom: 10px;}
+        .price-item { display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: 600; border-bottom: 1px dashed rgba(255,255,255,0.2); padding-bottom: 8px; }
+        .promo-box { background: rgba(255,255,255,0.2); border: 2px solid var(--purple); padding: 15px; border-radius: 10px; margin: 10px 0; text-align: center; }
 
         .schedule-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-        .schedule-card { background: #fff; border: 2px solid var(--soft-blue); border-radius: 15px; padding: 20px; box-shadow: 0 10px 20px rgba(179, 211, 234, 0.2); }
-        .schedule-card h4 { color: var(--gold); margin-bottom: 15px; font-weight: 800; }
-        .schedule-card li { list-style: none; padding: 5px 0; border-bottom: 1px solid #f0f0f0; color: var(--navy-deep); }
+        .schedule-card { background: rgba(255,255,255,0.1); border-radius: 15px; padding: 20px; border: 1px solid white; }
+        .schedule-card h4 { color: var(--gold); margin-bottom: 15px; }
+        .schedule-card li { list-style: none; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.2); }
 
-        .carousel-container { position: relative; max-width: 800px; margin: 0 auto 50px; border: 6px solid var(--gold); border-radius: 15px; overflow: hidden; box-shadow: 0 20px 40px rgba(29, 59, 107, 0.2); }
-        .carousel-track { display: flex; transition: transform 0.5s ease-in-out; }
+        /* Galería */
+        .carousel-container { position: relative; max-width: 800px; margin: 0 auto; border: 5px solid var(--gold); border-radius: 15px; overflow: hidden; background: black; }
+        .carousel-track { display: flex; transition: transform 0.5s ease; }
         .carousel-item { min-width: 100%; }
-        .carousel-item img, .carousel-item video { width: 100%; display: block; max-height: 450px; object-fit: cover; }
-        .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: var(--gold); border: none; color: white; padding: 15px 20px; cursor: pointer; font-weight: 900; font-size: 1.5rem; border-radius: 50%; }
-        .carousel-btn:hover { background: var(--navy-deep); }
-        .prev-btn { left: 10px; }
-        .next-btn { right: 10px; }
+        .carousel-item img, .carousel-item video { width: 100%; max-height: 450px; object-fit: cover; display: block; }
+        .car-btn { position: absolute; top: 50%; transform: translateY(-50%); background: var(--gold); border: none; padding: 15px; cursor: pointer; font-size: 1.5rem; border-radius: 50%; }
+        .car-btn:hover { background: white; }
 
-        .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-bottom: 50px; }
-        .review-card { background: #fff; padding: 25px; border-radius: 15px; border: 2px solid var(--soft-blue); box-shadow: 0 10px 20px rgba(179, 211, 234, 0.2); }
+        /* Experiencia */
+        .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-bottom: 60px; }
+        .review-card { background: rgba(255,255,255,0.1); padding: 25px; border-radius: 15px; border: 1px solid white; }
         .review-card .stars { color: var(--gold); font-size: 1.5rem; }
-        .review-card h4 { color: var(--navy-deep); margin: 10px 0; }
+        .review-card h4 { margin: 10px 0; }
+        .review-form { background: rgba(255,255,255,0.1); max-width: 600px; margin: 0 auto; padding: 30px; border-radius: 20px; }
+        .review-form input, .review-form textarea, .review-form select { width: 100%; padding: 15px; margin-bottom: 15px; background: rgba(255,255,255,0.9); border: none; border-radius: 8px; color: #333; }
+        .review-form button { width: 100%; padding: 15px; background: var(--gold); border: none; color: var(--navy-deep); font-weight: 800; border-radius: 10px; cursor: pointer; }
 
-        .review-form { background: #fff; max-width: 600px; margin: 0 auto; padding: 30px; border-radius: 15px; border: 2px solid var(--soft-blue); box-shadow: 0 10px 20px rgba(179, 211, 234, 0.2); }
-        .review-form h3 { text-align: center; color: var(--navy-deep); font-weight: 800; }
-        .review-form input, .review-form textarea, .review-form select { width: 100%; padding: 15px; margin-bottom: 15px; border: 1px solid var(--soft-blue); border-radius: 8px; }
-        .review-form button { width: 100%; padding: 15px; background: var(--gold); color: var(--navy-deep); font-weight: 800; border: none; border-radius: 8px; cursor: pointer; }
-        .review-form button:hover { background: var(--soft-pink); }
-
-        .contact-section { background: var(--navy-deep); padding: 60px 20px; text-align: center; border-top: 5px solid var(--gold); }
-        .contact-grid { display: flex; flex-direction: column; gap: 15px; font-size: 1.2rem; font-weight: 600; margin-bottom: 30px; color: white; }
-        .contact-grid i { color: var(--gold); margin-right: 10px; }
-        .map-container { max-width: 800px; margin: 0 auto 30px; border: 5px solid var(--gold); border-radius: 20px; overflow: hidden; }
-
+        /* Contacto */
+        .contact-section { background: #0a1e30; padding: 60px 20px; text-align: center; border-top: 5px solid var(--gold); }
+        .contact-grid { display: flex; flex-direction: column; gap: 15px; font-size: 1.3rem; font-weight: 600; margin-bottom: 30px; }
+        .contact-grid i { color: var(--gold); }
         .static-whatsapp-btn {
-            display: block; width: fit-content; margin: 0 auto;
-            padding: 18px 40px; background: #25D366; color: white;
-            font-weight: 800; font-size: 1.2rem; border-radius: 50px;
-            text-align: center; border: 3px solid white;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3); transition: 0.3s;
+            display: inline-block; padding: 20px 50px; background: #25D366; color: white;
+            font-size: 1.3rem; font-weight: 800; border-radius: 50px;
+            border: 3px solid white; margin-bottom: 40px; transition: 0.3s;
         }
-        .static-whatsapp-btn:hover { background: #1da851; transform: scale(1.05); }
-
-        footer { background: #000; text-align: center; padding: 30px; color: #888; font-weight: 600; }
+        .static-whatsapp-btn:hover { transform: scale(1.05); }
+        .map-container { max-width: 800px; margin: 0 auto; border: 5px solid var(--gold); border-radius: 20px; overflow: hidden; }
+        footer { background: #000; padding: 30px; text-align: center; color: #aaa; font-weight: 500; }
         footer span { color: var(--gold); }
     </style>
 </head>
 <body>
 
+    <!-- NAVBAR CON LOGO -->
     <nav class="navbar">
-        <div class="logo" onclick="switchTab('home')"><i class="fas fa-swimmer"></i> Aqua<span>Mar</span></div>
+        <div style="display: flex; align-items: center;">
+            <img src="logo.jpg" alt="Logo AquaMar" class="logo-img">
+            <span class="logo-text" onclick="switchTab('home')">Aqua<span>Mar</span></span>
+        </div>
         <div class="nav-links" id="navLinks">
             <a onclick="switchTab('home')" class="active" id="nav-home">Inicio</a>
             <a onclick="switchTab('gallery')" id="nav-gallery">Galería</a>
@@ -216,49 +244,80 @@
         <div class="hamburger" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
     </nav>
 
+    <!-- TAB 1: INICIO -->
     <div id="home-tab" class="tab-content active">
-        <section class="hero">
-            <div class="bubbles">
-                <span></span><span></span><span></span><span></span><span></span>
+
+        <!-- CARRUSEL PRINCIPAL ESTILO COOLBOX -->
+        <div class="hero-carousel" id="mainCarousel">
+            <!-- Banner 1 -->
+            <div class="hero-slide active">
+                <img src="banner1.jpg" alt="Promoción 1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="placeholder" style="display: none;">Pronto más promociones del mes!</div>
             </div>
-            
+            <!-- Banner 2 -->
+            <div class="hero-slide">
+                <img src="banner2.jpg" alt="Promoción 2" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="placeholder" style="display: none;">Pronto más promociones del mes!</div>
+            </div>
+            <!-- Banner 3 -->
+            <div class="hero-slide">
+                <img src="banner3.jpg" alt="Promoción 3" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="placeholder" style="display: none;">Pronto más promociones del mes!</div>
+            </div>
+            <!-- Banner 4 -->
+            <div class="hero-slide">
+                <img src="banner4.jpg" alt="Promoción 4" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="placeholder" style="display: none;">Pronto más promociones del mes!</div>
+            </div>
+            <!-- Banner 5 -->
+            <div class="hero-slide">
+                <img src="banner5.jpg" alt="Promoción 5" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="placeholder" style="display: none;">Pronto más promociones del mes!</div>
+            </div>
+            <!-- Banner 6 -->
+            <div class="hero-slide">
+                <img src="banner6.jpg" alt="Promoción 6" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="placeholder" style="display: none;">Pronto más promociones del mes!</div>
+            </div>
+
+            <!-- Flechas -->
+            <button class="hero-arrow prev-btn" onclick="moveSlide(-1)">❮</button>
+            <button class="hero-arrow next-btn" onclick="moveSlide(1)">❯</button>
+
+            <!-- Mini botones semitransparentes -->
+            <div class="hero-dots">
+                <span class="dot active" onclick="currentSlide(0)"></span>
+                <span class="dot" onclick="currentSlide(1)"></span>
+                <span class="dot" onclick="currentSlide(2)"></span>
+                <span class="dot" onclick="currentSlide(3)"></span>
+                <span class="dot" onclick="currentSlide(4)"></span>
+                <span class="dot" onclick="currentSlide(5)"></span>
+            </div>
+        </div>
+
+        <!-- HERO ACUÁTICO -->
+        <section class="aqua-hero">
             <h1>Aqua<span>Mar</span> Swimming Gold</h1>
-            <h3>¡Formando Campeones desde la cuna!</h3>
-            <p>Clases para bebés, niños y adultos en San Miguel. Aprende con la técnica de campeones.</p>
-            
-            <div class="moving-banner">
-                <div class="banner-track">
-                    <div class="banner-slide">🔥 ¡CLASE PRUEBA GRATIS!</div>
-                    <div class="banner-slide">🏆 ¡Descuento del 10% en horarios de 6 AM!</div>
-                    <div class="banner-slide">👶 ¡Inscripciones abiertas para AquaBebé!</div>
-                    <div class="banner-slide">🚀 ¡Grupos de 4 personas pagan solo S/240!</div>
-                    <div class="banner-slide">🔥 ¡CLASE PRUEBA GRATIS!</div>
-                </div>
-            </div>
-
-            <button class="cta-btn" onclick="window.open('https://wa.me/51961875074', '_blank')">
-                <i class="fab fa-whatsapp"></i> ¡Quiero mi clase gratis!
-            </button>
-
-            <div class="wave-container">
-                <div class="wave1"></div>
-                <div class="wave2"></div>
-                <div class="wave3"></div>
-            </div>
+            <p>Clases para Bebés, Niños, Adultos, Terapia y Competitivo. ¡Formando campeones!</p>
+            <a href="https://wa.me/51961875074" target="_blank" class="cta-btn">
+                <i class="fab fa-whatsapp"></i> ¡Agenda tu clase gratis!
+            </a>
         </section>
 
-        <div class="container" style="margin-top: 50px;">
+        <!-- SERVICIOS -->
+        <div class="container">
             <h2 class="section-title">Nuestros Servicios</h2>
             <div class="services-grid">
-                <div class="service-card"><i class="fas fa-baby"></i><h4>AquaBebé</h4><p>Desde 4 meses</p></div>
-                <div class="service-card"><i class="fas fa-child"></i><h4>Niños</h4><p>Básico y avanzado</p></div>
+                <div class="service-card"><i class="fas fa-baby"></i><h4>AquaBebé</h4><p>4m a 3 años</p></div>
+                <div class="service-card"><i class="fas fa-child"></i><h4>Niños</h4><p>Básico a Avanzado</p></div>
                 <div class="service-card"><i class="fas fa-user"></i><h4>Adultos</h4><p>Todas las edades</p></div>
                 <div class="service-card"><i class="fas fa-heartbeat"></i><h4>Terapia</h4><p>Especializada</p></div>
                 <div class="service-card"><i class="fas fa-trophy"></i><h4>Competitivo</h4><p>Nivel torneo</p></div>
             </div>
         </div>
 
-        <div class="container" style="margin-top: 80px;">
+        <!-- TARIFAS -->
+        <div class="container" style="margin-top: 60px;">
             <h2 class="section-title">Planes y Tarifas</h2>
             <div class="pricing-wrapper">
                 <div class="price-card">
@@ -268,59 +327,69 @@
                     <div class="price-item"><span>04 Clases</span> <b>S/ 190</b></div>
                     <div class="price-item"><span>01 Clase</span> <b>S/ 50</b></div>
                 </div>
-                <div class="price-card" style="border-bottom-color: var(--soft-blue);">
+                <div class="price-card">
+                    <h3>Adultos Agosto</h3>
+                    <div class="price-item"><span>12 Clases</span> <b>S/ 266</b></div>
+                    <div class="price-item"><span>08 Clases</span> <b>S/ 210</b></div>
+                    <div class="price-item"><span>04 Clases</span> <b>S/ 130</b></div>
+                    <div class="price-item"><span>01 Clase</span> <b>S/ 40</b></div>
+                </div>
+                <div class="price-card">
                     <h3>AquaBebé (4m-3a)</h3>
                     <div class="price-item"><span>12 Clases</span> <b>S/ 290</b></div>
                     <div class="price-item"><span>08 Clases</span> <b>S/ 260</b></div>
                     <div class="price-item"><span>04 Clases</span> <b>S/ 190</b></div>
-                    <p style="font-size: 0.8rem; text-align: center;">Acompaña a tu bebé en el agua</p>
+                    <div class="price-item" style="color: var(--gold);"><span>🎉 Niños 12 clases</span> <b>S/ 240</b></div>
+                    <div class="price-item" style="color: var(--gold);"><span>Niños 08 clases</span> <b>S/ 190</b></div>
+                    <div class="price-item" style="color: var(--gold);"><span>Niños 04 clases</span> <b>S/ 105</b></div>
                 </div>
-                <div class="price-card" style="background: #fdf5f9;">
-                    <h3>🎉 Ofertas en Grupo</h3>
-                    <div class="promo-box">2 personas: S/ 260 c/u</div>
-                    <div class="promo-box">3 personas: S/ 260 c/u</div>
-                    <div class="promo-box">4+ personas: S/ 240 c/u</div>
+            </div>
+            <div style="text-align: center; margin-top: 30px;">
+                <div class="promo-box" style="max-width: 400px; margin: 0 auto; font-size: 1.4rem; font-weight: 800;">
+                    🏆 Oferta Especial: ¡1 Clase de Prueba GRATIS! 
                 </div>
             </div>
         </div>
 
-        <div class="container" style="margin-top: 80px; margin-bottom: 50px;">
-            <h2 class="section-title">Horarios de Natación</h2>
+        <!-- HORARIOS -->
+        <div class="container" style="margin-top: 60px;">
+            <h2 class="section-title">Horarios</h2>
             <div class="schedule-grid">
                 <div class="schedule-card">
                     <h4>Niños (4+)</h4>
                     <ul>
-                        <li>Lun-Mie-Vie: 05:00 - 08:00 pm</li>
-                        <li>Mar-Jue: 05:00 - 07:00 pm</li>
-                        <li>Sábados: 03:00 - 05:00 pm</li>
-                        <li>Domingos: 09:00 - 10:00 am</li>
+                        <li>Lun-Mie-Vie: 05:00 - 08:00 PM</li>
+                        <li>Mar-Jue: 05:00 - 07:00 PM</li>
+                        <li>Sábados: 03:00 - 05:00 PM</li>
+                        <li>Domingos: 09:00 - 10:00 AM</li>
                     </ul>
                 </div>
                 <div class="schedule-card">
                     <h4>Adultos</h4>
                     <ul>
-                        <li>Lun-Mie-Vie: 06:00 am / 06:00 pm</li>
-                        <li>Mar-Jue: 06:00 - 07:00 am</li>
-                        <li>Sábados: 03:00 - 05:00 pm</li>
-                        <li>Domingos: 09:00 - 10:00 am</li>
+                        <li>Lun-Mie-Vie: 06:00 AM / 06:00 - 08:00 PM</li>
+                        <li>Mar-Jue: 06:00 - 07:00 AM</li>
+                        <li>Sábados: 05:00 - 07:00 AM</li>
+                        <li>Domingos: 09:00 - 10:00 AM</li>
                     </ul>
                 </div>
-                <div class="schedule-card" style="border-color: var(--soft-pink);">
+                <div class="schedule-card">
                     <h4>AquaBebé</h4>
                     <ul>
-                        <li>Lun-Mie-Vie: 05:00 - 08:00 pm</li>
-                        <li>Mar-Jue: 05:00 - 07:00 pm</li>
-                        <li>Sábados: 03:00 - 05:00 pm</li>
-                        <li>Domingos: 10:00 am - 01:00 pm</li>
+                        <li>Lun-Mie-Vie: 05:00 - 08:00 PM</li>
+                        <li>Mar-Jue: 05:00 - 07:00 PM</li>
+                        <li>Sábados: 03:00 - 05:00 PM</li>
+                        <li>Domingos: 10:00 AM - 01:00 PM</li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- TAB 2: GALERÍA -->
     <div id="gallery-tab" class="tab-content">
         <h2 class="section-title">Galería de Imágenes</h2>
-        <div class="carousel-container" id="image-slider">
+        <div class="carousel-container" id="img-carousel">
             <div class="carousel-track">
                 <div class="carousel-item"><img src="IMG-20260819-WA0019.jpg"></div>
                 <div class="carousel-item"><img src="IMG-20260819-WA0020.jpg"></div>
@@ -329,12 +398,12 @@
                 <div class="carousel-item"><img src="IMG-20260819-WA0024.jpg"></div>
                 <div class="carousel-item"><img src="IMG-20260819-WA0025.jpg"></div>
             </div>
-            <button class="carousel-btn prev-btn" onclick="moveCarousel('image-slider', -1)">❮</button>
-            <button class="carousel-btn next-btn" onclick="moveCarousel('image-slider', 1)">❯</button>
+            <button class="car-btn prev-btn" onclick="moveGallery(-1, 'img-carousel')">❮</button>
+            <button class="car-btn next-btn" onclick="moveGallery(1, 'img-carousel')">❯</button>
         </div>
 
-        <h2 class="section-title">Galería de Videos</h2>
-        <div class="carousel-container" id="video-slider">
+        <h2 class="section-title" style="margin-top: 50px;">Galería de Videos</h2>
+        <div class="carousel-container" id="vid-carousel">
             <div class="carousel-track">
                 <div class="carousel-item"><video src="VID-20260819-WA0026.mp4" controls></video></div>
                 <div class="carousel-item"><video src="VID-20260819-WA0027.mp4" controls></video></div>
@@ -343,67 +412,54 @@
                 <div class="carousel-item"><video src="VID-20260819-WA0030.mp4" controls></video></div>
                 <div class="carousel-item"><video src="VID-20260819-WA0031.mp4" controls></video></div>
             </div>
-            <button class="carousel-btn prev-btn" onclick="moveCarousel('video-slider', -1)">❮</button>
-            <button class="carousel-btn next-btn" onclick="moveCarousel('video-slider', 1)">❯</button>
+            <button class="car-btn prev-btn" onclick="moveGallery(-1, 'vid-carousel')">❮</button>
+            <button class="car-btn next-btn" onclick="moveGallery(1, 'vid-carousel')">❯</button>
         </div>
     </div>
 
+    <!-- TAB 3: EXPERIENCIA -->
     <div id="reviews-tab" class="tab-content">
         <h2 class="section-title">Experiencia de Alumnos</h2>
         <div class="reviews-grid">
-            <div class="review-card">
-                <div class="stars">★★★★★</div>
-                <h4>María G.</h4>
-                <p>"¡El mejor lugar! Mi hijo aprendió en 2 meses. Los profesores son súper pacientes."</p>
-            </div>
-            <div class="review-card">
-                <div class="stars">★★★★☆</div>
-                <h4>Carlos R.</h4>
-                <p>"Excelentes instalaciones y clases para adultos. Perdí el miedo al agua."</p>
-            </div>
-            <div class="review-card">
-                <div class="stars">★★★★★</div>
-                <h4>Ana Lucía</h4>
-                <p>"Mi bebé de 9 meses ama sus clases. Ambiente seguro y súper cálido."</p>
-            </div>
+            <div class="review-card"><div class="stars">★★★★★</div><h4>María G.</h4><p>¡Excelente lugar para aprender!</p></div>
+            <div class="review-card"><div class="stars">★★★★★</div><h4>Carlos R.</h4><p>Muy buenos profesores.</p></div>
+            <div class="review-card"><div class="stars">★★★★★</div><h4>Ana Lucía</h4><p>Mi bebé ama sus clases.</p></div>
         </div>
 
         <div class="review-form">
-            <h3>¡Déjanos tu comentario!</h3>
+            <h3 style="text-align: center;">¡Déjanos tu reseña!</h3>
             <form onsubmit="submitReview(event)">
-                <input type="text" placeholder="Tu nombre (opcional)" id="reviewer-name">
-                <select id="reviewer-stars">
-                    <option value="5">★★★★★ (Excelente)</option>
-                    <option value="4">★★★★☆ (Muy bueno)</option>
-                    <option value="3">★★★☆☆ (Bueno)</option>
-                    <option value="2">★★☆☆☆ (Regular)</option>
-                    <option value="1">★☆☆☆☆ (Malo)</option>
+                <input type="text" placeholder="Nombre" id="rev-name">
+                <select id="rev-stars">
+                    <option value="5">★★★★★ Excelente</option>
+                    <option value="4">★★★★☆ Muy bueno</option>
+                    <option value="3">★★★☆☆ Bueno</option>
+                    <option value="2">★★☆☆☆ Regular</option>
+                    <option value="1">★☆☆☆☆ Malo</option>
                 </select>
-                <textarea rows="4" placeholder="Cuéntanos tu experiencia..." id="reviewer-text" required></textarea>
-                <button type="submit">Enviar mi experiencia</button>
+                <textarea placeholder="Tu experiencia" id="rev-text" required></textarea>
+                <button type="submit">Enviar</button>
             </form>
         </div>
     </div>
 
-    <section id="contacto" class="contact-section">
-        <h2 style="color: var(--gold); font-weight: 800; margin-bottom: 20px;">¡Contáctanos!</h2>
+    <!-- CONTACTO -->
+    <section class="contact-section">
+        <h2 style="color: var(--gold); margin-bottom: 20px;">¡Contáctanos!</h2>
         <div class="contact-grid">
-            <p><i class="fas fa-map-marker-alt"></i> Jr. prolongación Cusco 379 - San Miguel, Lima</p>
-            <p><i class="fas fa-phone-alt"></i> <a href="tel:+51961875074">961 875 074</a></p>
-            <p><i class="fab fa-whatsapp"></i> +51 961 875 074</p>
+            <p><i class="fas fa-map-marker-alt"></i> Jr. Prolongación Cusco 379 - San Miguel</p>
+            <p><i class="fas fa-phone-alt"></i> 961 875 074</p>
         </div>
-        
-        <a href="https://wa.me/51961875074?text=Hola%20AquaMar!" target="_blank" class="static-whatsapp-btn">
+        <a href="https://wa.me/51961875074" target="_blank" class="static-whatsapp-btn">
             <i class="fab fa-whatsapp"></i> ¡Escríbenos por WhatsApp!
         </a>
-
-        <div class="map-container" style="margin-top: 30px;">
+        <div class="map-container">
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3901.041315115462!2d-77.0910897!3d-12.0760292!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105c915c8373e59%3A0xe2f422573d4a5d27!2sJr.%20Cusco%20379%2C%20San%20Miguel%2015086!5e0!3m2!1ses!2spe!4v1734567890123!5m2!1ses!2spe" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2026 AquaMar Swimming Gold. Formando Campeones.</p>
+        <p>&copy; 2026 AquaMar Swimming Gold. Todos los derechos reservados.</p>
     </footer>
 
     <script>
@@ -419,7 +475,36 @@
             document.getElementById('nav-' + tabName).classList.add('active');
         }
 
-        function moveCarousel(sliderId, direction) {
+        // ============ CARRUSEL PRINCIPAL (Fade + Dots) ============
+        let slideIndex = 0;
+        const slides = document.querySelectorAll('.hero-slide');
+        const dots = document.querySelectorAll('.dot');
+        let slideInterval = setInterval(() => moveSlide(1), 5000);
+
+        function moveSlide(n) {
+            showSlide(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlide(slideIndex = n);
+        }
+
+        function showSlide(n) {
+            if (n >= slides.length) slideIndex = 0;
+            if (n < 0) slideIndex = slides.length - 1;
+            
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            slides[slideIndex].classList.add('active');
+            dots[slideIndex].classList.add('active');
+
+            clearInterval(slideInterval);
+            slideInterval = setInterval(() => moveSlide(1), 5000);
+        }
+
+        // ============ GALERÍAS (Carrusel deslizante) ============
+        function moveGallery(direction, sliderId) {
             const track = document.getElementById(sliderId).querySelector('.carousel-track');
             const items = track.querySelectorAll('.carousel-item');
             const itemWidth = items[0].clientWidth;
@@ -435,7 +520,7 @@
 
         function submitReview(event) {
             event.preventDefault();
-            alert("¡Gracias! Tu comentario ha sido recibido.");
+            alert("¡Gracias! Tu reseña ha sido guardada.");
             document.querySelector('.review-form form').reset();
         }
     </script>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AquaMar Swimming Gold</title>
+    <title>AquaMar Swimming Gold - Clases de Natación</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
@@ -11,10 +11,12 @@
             --navy-deep: #102a43; 
             --aqua-bright: #2d8dbd;
             --gold: #f3b229;
+            --logo-blue: #1d3b6b; /* Azul marino del logo */
             --text-light: #ffffff;
             --water-pink: #f4c7e0;
             --water-purple: #e1bee7;
             --water-blue: #b3d3ea;
+            --shadow-3d: 0 10px 20px rgba(0,0,0,0.3), 0 6px 6px rgba(0,0,0,0.2);
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -23,21 +25,17 @@
             color: var(--text-light); 
             background: linear-gradient(180deg, #ffffff 0%, var(--water-pink) 30%, var(--water-purple) 60%, var(--water-blue) 100%);
             background-attachment: fixed;
-            position: relative;
             min-height: 100vh;
         }
         a { text-decoration: none; color: inherit; }
 
-        /* ============ BURBUJAS TRANSPARENTES (Las que te gustaban) ============ */
+        /* Burbujas transparentes */
         .bubbles {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 0;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 0;
         }
         .bubbles span {
-            position: absolute;
-            bottom: -50px;
+            position: absolute; bottom: -50px;
             background: rgba(255,255,255,0.4);
             border: 1px solid rgba(255,255,255,0.6);
             border-radius: 50%;
@@ -55,226 +53,210 @@
             100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
         }
 
-        /* ============ NAVBAR ============ */
+        /* ============ NAVBAR (FONDO CLARO PARA EL LOGO AZUL Y AMARILLO) ============ */
         .navbar {
             position: sticky; top: 0;
-            background: rgba(16, 42, 67, 0.92); 
-            backdrop-filter: blur(8px);
+            background: #f8f9fa; /* Fondo blanco/crema */
             padding: 10px 30px;
             display: flex;
             flex-direction: column;
             align-items: flex-start;
             z-index: 1000;
-            border-bottom: 2px solid var(--gold);
+            border-bottom: 4px solid var(--gold);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
         .logo-area {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-            cursor: pointer;
+            display: flex; align-items: center; margin-bottom: 10px; cursor: pointer;
         }
-        .logo-area img {
-            height: 50px;
-            width: auto;
-            margin-right: 10px;
-            border-radius: 5px;
-        }
-        .logo-area span { font-size: 1.2rem; font-weight: 800; color: white; }
+        .logo-area img { height: 50px; width: auto; margin-right: 10px; }
+        .logo-area span { font-size: 1.6rem; font-weight: 800; color: var(--logo-blue); }
         .logo-area span span { color: var(--gold); }
 
         .nav-links { display: flex; gap: 25px; font-weight: 600; font-size: 1.1rem; }
-        .nav-links a { color: white; transition: 0.3s; cursor: pointer; }
+        .nav-links a { color: var(--logo-blue); transition: 0.3s; cursor: pointer; }
         .nav-links a:hover, .nav-links a.active { color: var(--gold); }
 
-        .hamburger { display: none; color: var(--gold); font-size: 2rem; cursor: pointer; position: absolute; top: 20px; right: 20px;}
+        .hamburger { display: none; color: var(--logo-blue); font-size: 2rem; cursor: pointer; position: absolute; top: 20px; right: 20px;}
         @media (max-width: 768px) {
             .navbar { padding: 15px; }
             .hamburger { display: block; }
-            .nav-links {
-                display: none; flex-direction: column; width: 100%; position: absolute;
-                top: 85px; left: 0; background: var(--navy-deep); padding: 20px;
-                text-align: center;
-            }
+            .nav-links { display: none; flex-direction: column; width: 100%; position: absolute; top: 85px; left: 0; background: #f8f9fa; padding: 20px; text-align: center; border-bottom: 4px solid var(--gold); }
             .nav-links.active { display: flex; }
         }
 
-        /* ============ CARRUSEL PRINCIPAL ============ */
-        .carousel-wrapper {
-            max-width: 1100px;
-            margin: 30px auto 0;
+        /* LAYOUT PRINCIPAL (Sidebar + Contenido) */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 30px;
+            max-width: 1400px;
+            margin: 30px auto;
             padding: 0 20px;
             position: relative;
             z-index: 1;
         }
-        .hero-carousel {
+        @media (max-width: 900px) {
+            .main-layout { grid-template-columns: 1fr; }
+        }
+
+        /* SIDEBAR LINKS DE INTERÉS */
+        .sidebar {
+            background: var(--navy-deep);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: var(--shadow-3d);
+            height: fit-content;
+            position: sticky; top: 120px;
+        }
+        .sidebar h3 { color: var(--gold); margin-bottom: 20px; font-size: 1.2rem; border-bottom: 2px solid var(--gold); padding-bottom: 10px; }
+        .sidebar ul { list-style: none; }
+        .sidebar li { margin-bottom: 10px; }
+        .sidebar a { display: block; padding: 12px 15px; background: rgba(255,255,255,0.1); border-radius: 8px; transition: 0.3s; font-weight: 600; color: white; }
+        .sidebar a:hover { background: var(--gold); color: var(--navy-deep); transform: translateX(5px); }
+
+        /* CARRUSEL PRINCIPAL */
+        .carousel-wrapper {
             position: relative;
             width: 100%;
             height: 400px;
-            overflow: hidden;
             border: 5px solid var(--gold);
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            overflow: hidden;
+            box-shadow: var(--shadow-3d);
             background: #000;
         }
-        .hero-slide {
-            position: absolute;
-            inset: 0;
-            width: 100%; height: 100%;
-            opacity: 0;
-            transition: opacity 0.8s ease-in-out;
-            z-index: 1;
-        }
+        .hero-slide { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 0.8s ease-in-out; z-index: 1; }
         .hero-slide.active { opacity: 1; z-index: 2; }
-        .hero-slide img {
-            width: 100%; height: 100%;
-            object-fit: contain;
-            background: #000;
-        }
+        .hero-slide img { width: 100%; height: 100%; object-fit: contain; background: #000; }
         
-        .placeholder {
-            position: absolute; inset: 0;
-            display: flex; justify-content: center; align-items: center;
-            background: linear-gradient(135deg, var(--aqua-bright), var(--navy-deep));
-            color: rgba(255,255,255,0.7);
-            font-size: 1.5rem;
-            font-weight: 700;
-            text-align: center;
-            padding: 40px;
-        }
+        .placeholder { position: absolute; inset: 0; display: flex; justify-content: center; align-items: center; background: linear-gradient(135deg, var(--aqua-bright), var(--navy-deep)); color: rgba(255,255,255,0.7); font-size: 1.5rem; font-weight: 700; text-align: center; padding: 40px; }
 
-        .hero-arrow {
-            position: absolute;
-            top: 50%; transform: translateY(-50%);
-            background: rgba(255,255,255,0.2); 
-            border: 2px solid rgba(255,255,255,0.3);
-            color: white; padding: 12px 18px; cursor: pointer;
-            font-size: 1.5rem; z-index: 10; border-radius: 50%;
-            transition: 0.3s;
-        }
+        .hero-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.3); color: white; padding: 12px 18px; cursor: pointer; font-size: 1.5rem; z-index: 10; border-radius: 50%; transition: 0.3s; }
         .hero-arrow:hover { background: var(--gold); border-color: var(--gold); color: var(--navy-deep); }
         .prev-btn { left: 15px; }
         .next-btn { right: 15px; }
 
-        .hero-dots {
-            position: absolute;
-            bottom: 15px; left: 50%;
-            transform: translateX(-50%);
-            z-index: 10;
-            display: flex; gap: 12px;
-        }
-        .dot {
-            width: 12px; height: 12px;
-            background: rgba(255,255,255,0.5);
-            border: 2px solid white;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .dot.active { 
-            background: var(--gold); 
-            border-color: var(--gold); 
-            transform: scale(1.3); 
-            box-shadow: 0 0 10px var(--gold);
-        }
+        .hero-dots { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); z-index: 10; display: flex; gap: 12px; }
+        .dot { width: 12px; height: 12px; background: rgba(255,255,255,0.5); border: 2px solid white; border-radius: 50%; cursor: pointer; transition: all 0.3s; }
+        .dot.active { background: var(--gold); border-color: var(--gold); transform: scale(1.3); box-shadow: 0 0 10px var(--gold); }
 
         @media (max-width: 768px) {
-            .hero-carousel { height: 250px; }
+            .carousel-wrapper { height: 250px; }
             .hero-arrow { padding: 8px 10px; font-size: 1.2rem; }
-            .placeholder { font-size: 1.2rem; }
         }
 
-        /* ============ HERO ACUÁTICO ============ */
+        /* HERO ACUÁTICO 3D */
         .aqua-hero {
-            padding: 60px 20px 40px;
-            text-align: center;
-            background: rgba(16, 42, 67, 0.85);
-            margin: 30px 20px;
+            background: linear-gradient(145deg, var(--navy-deep), var(--aqua-bright));
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-3d);
+            border: 3px solid var(--gold);
         }
-        .aqua-hero h1 { font-size: 3.5rem; font-weight: 800; text-shadow: 3px 3px 0px rgba(0,0,0,0.3); color: white; }
-        .aqua-hero h1 span { color: var(--gold); }
-        .aqua-hero p { font-size: 1.2rem; margin-top: 10px; color: #a0c4d8; }
-        .cta-btn {
-            display: inline-block;
-            margin-top: 25px;
-            background: var(--gold); color: var(--navy-deep);
-            padding: 15px 40px; border-radius: 50px;
-            font-size: 1.2rem; font-weight: 800;
-            border: 3px solid white;
-            transition: 0.3s;
-        }
-        .cta-btn:hover { transform: scale(1.05); background: white; }
+        .aqua-hero h1 { font-size: 3.5rem; font-weight: 800; color: white; text-shadow: 3px 3px 0px rgba(0,0,0,0.5); }
+        .aqua-hero h1 span { color: var(--gold); text-shadow: 3px 3px 0px rgba(0,0,0,0.5); }
+        .aqua-hero p { font-size: 1.2rem; margin-top: 10px; color: #d1e4f0; }
+        .cta-btn { display: inline-block; margin-top: 25px; background: var(--gold); color: var(--navy-deep); padding: 15px 40px; border-radius: 50px; font-size: 1.2rem; font-weight: 800; border: 3px solid white; box-shadow: 0 6px 0 #c98d1c; transition: 0.2s; }
+        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 9px 0 #c98d1c; }
         .cta-btn i { margin-right: 10px; }
 
-        /* ============ SECCIONES ============ */
-        .tab-content { display: none; padding: 40px 20px; position: relative; z-index: 1; }
-        .tab-content.active { display: block; }
-        .container { max-width: 1100px; margin: 0 auto; background: rgba(16, 42, 67, 0.85); padding: 30px; border-radius: 20px; }
-        .section-title { text-align: center; font-size: 2.5rem; font-weight: 800; color: var(--gold); margin-bottom: 30px; }
+        /* SECCIONES GENERALES */
+        .section-title { text-align: center; font-size: 2.5rem; font-weight: 800; color: var(--gold); margin: 40px 0 30px; text-shadow: 2px 2px 0px var(--navy-deep); }
+        .section-title i { margin-right: 10px; }
 
         .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 25px; }
         .service-card {
-            background: rgba(255,255,255,0.05); padding: 30px; border-radius: 15px;
-            text-align: center; border: 1px solid rgba(255,255,255,0.1);
+            background: linear-gradient(145deg, var(--navy-deep), var(--aqua-bright));
+            padding: 30px; border-radius: 15px; text-align: center;
+            border: 2px solid var(--gold);
+            box-shadow: var(--shadow-3d);
             transition: 0.3s;
         }
-        .service-card:hover { transform: translateY(-10px); border-color: var(--gold); }
+        .service-card:hover { transform: translateY(-10px) rotate(1deg); border-color: white; }
         .service-card i { font-size: 2.5rem; color: var(--gold); margin-bottom: 10px; }
-        .service-card h4 { font-size: 1.1rem; }
+        .service-card h4 { font-size: 1.1rem; color: white; }
 
         .pricing-wrapper { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
         .price-card {
-            background: rgba(255,255,255,0.05); border-radius: 20px; padding: 30px;
-            border-bottom: 5px solid var(--gold);
+            background: #fff;
+            border-radius: 20px; padding: 30px;
+            border-bottom: 8px solid var(--gold);
+            box-shadow: var(--shadow-3d);
+            color: var(--navy-deep);
+            transition: 0.3s;
         }
-        .price-card h3 { color: var(--gold); margin-bottom: 15px; font-size: 1.3rem; }
-        .price-item { display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: 600; color: #d1e4f0; border-bottom: 1px dashed rgba(255,255,255,0.2); padding-bottom: 8px; }
+        .price-card:hover { transform: translateY(-5px); }
+        .price-card h3 { color: var(--navy-deep); margin-bottom: 15px; font-size: 1.3rem; border-bottom: 2px solid var(--navy-deep); padding-bottom: 10px; }
+        .price-item { display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: 600; border-bottom: 1px dashed #ccc; padding-bottom: 8px; }
 
         .schedule-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-        .schedule-card { background: rgba(255,255,255,0.05); border-radius: 15px; padding: 20px; }
+        .schedule-card { background: var(--navy-deep); border-radius: 15px; padding: 20px; border: 2px solid var(--gold); box-shadow: var(--shadow-3d); }
         .schedule-card h4 { color: var(--gold); margin-bottom: 15px; }
         .schedule-card li { list-style: none; padding: 8px 0; color: #d1e4f0; border-bottom: 1px solid rgba(255,255,255,0.1); }
 
-        /* Galería */
-        .carousel-container { position: relative; max-width: 800px; margin: 0 auto; border: 4px solid var(--gold); border-radius: 15px; overflow: hidden; background: black; }
-        .carousel-track { display: flex; transition: transform 0.5s ease; }
-        .carousel-item { min-width: 100%; }
-        .carousel-item img, .carousel-item video { width: 100%; max-height: 450px; object-fit: contain; display: block; }
-        .car-btn { position: absolute; top: 50%; transform: translateY(-50%); background: var(--gold); border: none; padding: 12px; cursor: pointer; font-size: 1.4rem; border-radius: 50%; }
-        .car-btn:hover { background: white; }
+        /* CARRUSEL DE NOTICIAS */
+        .news-carousel-container { position: relative; overflow: hidden; padding: 10px; }
+        .news-track { display: flex; gap: 20px; transition: transform 0.5s ease; }
+        .news-card {
+            min-width: 300px;
+            background: linear-gradient(145deg, #fff, #f0f0f0);
+            color: var(--navy-deep);
+            border-radius: 15px;
+            padding: 20px;
+            border: 3px solid var(--gold);
+            box-shadow: var(--shadow-3d);
+        }
+        .news-card h4 { color: var(--navy-deep); margin-bottom: 10px; font-size: 1.2rem; }
+        .news-card p { font-size: 0.9rem; color: #555; }
+        .btn-news { display: inline-block; margin-top: 15px; background: var(--aqua-bright); color: white; padding: 8px 15px; border-radius: 5px; font-size: 0.9rem; }
+        .btn-news:hover { background: var(--navy-deep); }
 
-        /* Experiencia */
-        .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-bottom: 50px; }
-        .review-card { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 15px; color: #d1e4f0; }
-        .review-card .stars { color: var(--gold); font-size: 1.3rem; }
-        .review-card h4 { color: white; margin: 10px 0; }
-        .review-form { background: rgba(255,255,255,0.05); max-width: 600px; margin: 0 auto; padding: 30px; border-radius: 20px; }
-        .review-form input, .review-form textarea, .review-form select { width: 100%; padding: 15px; margin-bottom: 15px; background: rgba(255,255,255,0.9); border: none; border-radius: 8px; color: #333; font-family: 'Poppins', sans-serif; }
-        .review-form button { width: 100%; padding: 15px; background: var(--gold); border: none; color: var(--navy-deep); font-weight: 800; border-radius: 10px; cursor: pointer; }
+        /* CARRUSEL DE TESTIMONIOS 3D */
+        .testimonials-carousel-container { position: relative; overflow: hidden; padding: 20px 0; }
+        .testimonials-track { display: flex; gap: 30px; transition: transform 0.5s ease; }
+        .testimonial-card {
+            min-width: 280px;
+            background: white;
+            color: var(--navy-deep);
+            border-radius: 15px;
+            padding: 25px;
+            border: 4px solid var(--gold);
+            box-shadow: var(--shadow-3d);
+            transform: perspective(800px) rotateY(5deg);
+            transition: 0.3s;
+        }
+        .testimonial-card:hover { transform: perspective(800px) rotateY(0deg) scale(1.05); }
+        .testimonial-card .stars { color: var(--gold); font-size: 1.3rem; }
+        .testimonial-card h4 { margin: 10px 0; color: var(--navy-deep); }
+        .testimonial-card p { font-size: 0.95rem; color: #444; }
 
-        /* Contacto */
-        .contact-section { background: #0a1e30; padding: 50px 20px; text-align: center; border-top: 3px solid var(--gold); position: relative; z-index: 1; }
-        .contact-grid { display: flex; flex-direction: column; gap: 15px; font-size: 1.2rem; font-weight: 600; margin-bottom: 25px; }
-        .contact-grid i { color: var(--gold); }
-        .static-whatsapp-btn { display: inline-block; padding: 15px 40px; background: #25D366; color: white; font-size: 1.2rem; font-weight: 800; border-radius: 50px; border: 2px solid white; margin-bottom: 30px; }
-        .map-container { max-width: 800px; margin: 0 auto; border: 3px solid var(--gold); border-radius: 15px; overflow: hidden; }
+        .car-btn { position: absolute; top: 50%; transform: translateY(-50%); background: var(--gold); border: none; padding: 12px; cursor: pointer; font-size: 1.4rem; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 10; }
+        .car-btn:hover { background: white; color: var(--navy-deep); }
+        .car-btn.prev { left: -10px; }
+        .car-btn.next { right: -10px; }
+
+        /* CONTACTO */
+        .contact-section { background: var(--navy-deep); padding: 50px 20px; text-align: center; border-top: 5px solid var(--gold); position: relative; z-index: 1; }
+        .contact-grid { display: flex; flex-direction: column; gap: 15px; font-size: 1.2rem; font-weight: 600; margin-bottom: 25px; color: white; }
+        .contact-grid i { color: var(--gold); margin-right: 10px; }
+        .static-whatsapp-btn { display: inline-block; padding: 15px 40px; background: #25D366; color: white; font-size: 1.2rem; font-weight: 800; border-radius: 50px; border: 3px solid white; margin-bottom: 30px; box-shadow: 0 6px 0 #1da851; transition: 0.2s; }
+        .static-whatsapp-btn:hover { transform: translateY(-3px); }
+        .map-container { max-width: 800px; margin: 0 auto; border: 5px solid var(--gold); border-radius: 15px; overflow: hidden; }
+
         footer { background: #000; padding: 20px; text-align: center; color: #888; position: relative; z-index: 1; }
         footer span { color: var(--gold); }
     </style>
 </head>
 <body>
 
-    <!-- BURBUJAS TRANSPARENTES FLOTANDO POR TODA LA PÁGINA -->
+    <!-- Burbujas -->
     <div class="bubbles">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
+        <span></span><span></span><span></span><span></span><span></span>
     </div>
 
-    <!-- NAVBAR -->
+    <!-- NAVBAR (Fondo claro para ver el logo Azul y Amarillo) -->
     <nav class="navbar">
         <div class="logo-area" onclick="switchTab('home')">
             <img src="logo.jpg" alt="Logo AquaMar">
@@ -288,176 +270,232 @@
         <div class="hamburger" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
     </nav>
 
-    <!-- CONTENIDO -->
-    <div id="home-tab" class="tab-content active">
+    <!-- LAYOUT PRINCIPAL -->
+    <div class="main-layout">
+        
+        <!-- SIDEBAR LINKS DE INTERÉS -->
+        <aside class="sidebar">
+            <h3><i class="fas fa-link"></i> Enlaces Rápidos</h3>
+            <ul>
+                <li><a href="#" onclick="switchTab('home')"><i class="fas fa-home"></i> Inicio</a></li>
+                <li><a href="#" onclick="switchTab('gallery')"><i class="fas fa-images"></i> Galería</a></li>
+                <li><a href="#" onclick="switchTab('reviews')"><i class="fas fa-star"></i> Experiencia</a></li>
+                <li><a href="#" onclick="switchTab('home')"><i class="fas fa-swimmer"></i> Servicios</a></li>
+                <li><a href="#" onclick="switchTab('home')"><i class="fas fa-tags"></i> Precios</a></li>
+                <li><a href="#" onclick="switchTab('home')"><i class="fas fa-calendar-alt"></i> Horarios</a></li>
+                <li><a href="https://wa.me/51961875074" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
+            </ul>
+        </aside>
 
-        <!-- CARRUSEL DE BANNERS (Limpio, sin ondas que tapen) -->
-        <div class="carousel-wrapper">
-            <div class="hero-carousel" id="mainCarousel">
-                <div class="hero-slide active"><img src="banner1.jpg" alt="Promo 1"></div>
-                <div class="hero-slide"><img src="banner2.jpg" alt="Promo 2"></div>
-                <div class="hero-slide"><img src="banner3.jpg" alt="Promo 3"></div>
-                <div class="hero-slide"><img src="banner4.jpg" alt="Promo 4"></div>
-                <div class="hero-slide"><img src="banner5.jpg" alt="Promo 5"></div>
-                <div class="hero-slide"><img src="banner6.jpg" alt="Promo 6"></div>
+        <!-- CONTENIDO PRINCIPAL -->
+        <main>
+            <!-- HOME TAB -->
+            <div id="home-tab" class="tab-content active">
+
+                <!-- CARRUSEL PRINCIPAL -->
+                <div class="carousel-wrapper" id="mainCarousel">
+                    <div class="hero-slide active"><img src="banner1.jpg" alt="Promo 1"></div>
+                    <div class="hero-slide"><img src="banner2.jpg" alt="Promo 2"></div>
+                    <div class="hero-slide"><img src="banner3.jpg" alt="Promo 3"></div>
+                    <div class="hero-slide"><img src="banner4.jpg" alt="Promo 4"></div>
+                    <div class="hero-slide"><img src="banner5.jpg" alt="Promo 5"></div>
+                    <div class="hero-slide"><img src="banner6.jpg" alt="Promo 6"></div>
+                    <div class="placeholder" style="display: none;">Pronto más promociones del mes!</div>
+
+                    <button class="hero-arrow prev-btn" onclick="moveSlide(-1)">❮</button>
+                    <button class="hero-arrow next-btn" onclick="moveSlide(1)">❯</button>
+                    <div class="hero-dots">
+                        <span class="dot active" onclick="currentSlide(0)"></span>
+                        <span class="dot" onclick="currentSlide(1)"></span>
+                        <span class="dot" onclick="currentSlide(2)"></span>
+                        <span class="dot" onclick="currentSlide(3)"></span>
+                        <span class="dot" onclick="currentSlide(4)"></span>
+                        <span class="dot" onclick="currentSlide(5)"></span>
+                    </div>
+                </div>
+
+                <!-- HERO ACUÁTICO 3D -->
+                <section class="aqua-hero">
+                    <h1>Aqua<span>Mar</span> Swimming Gold</h1>
+                    <p>Clases para Bebés, Niños, Adultos, Terapia y Competitivo</p>
+                    <a href="https://wa.me/51961875074" target="_blank" class="cta-btn">
+                        <i class="fab fa-whatsapp"></i> ¡Agenda tu clase gratis!
+                    </a>
+                </section>
+
+                <!-- SERVICIOS -->
+                <h2 class="section-title"><i class="fas fa-swimmer"></i> Nuestros Servicios</h2>
+                <div class="services-grid">
+                    <div class="service-card"><i class="fas fa-baby"></i><h4>AquaBebé</h4><p>4m a 3 años</p></div>
+                    <div class="service-card"><i class="fas fa-child"></i><h4>Niños</h4><p>Básico a Avanzado</p></div>
+                    <div class="service-card"><i class="fas fa-user"></i><h4>Adultos</h4><p>Todas las edades</p></div>
+                    <div class="service-card"><i class="fas fa-heartbeat"></i><h4>Terapia</h4><p>Especializada</p></div>
+                    <div class="service-card"><i class="fas fa-trophy"></i><h4>Competitivo</h4><p>Nivel torneo</p></div>
+                </div>
+
+                <!-- NUEVO CARRUSEL DE NOTICIAS -->
+                <h2 class="section-title"><i class="fas fa-newspaper"></i> Novedades y Noticias</h2>
+                <div class="news-carousel-container" id="news-carousel">
+                    <div class="news-track" id="news-track">
+                        <div class="news-card">
+                            <h4>¡Inscripciones Abiertas!</h4>
+                            <p>Nuevo ciclo de clases para Bebés y Niños. ¡No te quedes sin cupo!</p>
+                            <a href="#" class="btn-news">Ver más</a>
+                        </div>
+                        <div class="news-card">
+                            <h4>Horario de Verano</h4>
+                            <p>Conoce nuestros nuevos horarios de verano y aprovecha los descuentos.</p>
+                            <a href="#" class="btn-news">Ver más</a>
+                        </div>
+                        <div class="news-card">
+                            <h4>Clases Grupales</h4>
+                            <p>¡Aprende en grupo y paga menos! Consulta los precios especiales.</p>
+                            <a href="#" class="btn-news">Ver más</a>
+                        </div>
+                        <div class="news-card">
+                            <h4>Equipo Competitivo</h4>
+                            <p>¿Quieres competir? Únete a nuestro equipo y representar a AquaMar.</p>
+                            <a href="#" class="btn-news">Ver más</a>
+                        </div>
+                    </div>
+                    <button class="car-btn prev" onclick="moveNews(-1)">❮</button>
+                    <button class="car-btn next" onclick="moveNews(1)">❯</button>
+                </div>
+
+                <!-- TARIFAS -->
+                <h2 class="section-title"><i class="fas fa-tags"></i> Planes y Tarifas</h2>
+                <div class="pricing-wrapper">
+                    <div class="price-card">
+                        <h3>Niños & Adultos</h3>
+                        <div class="price-item"><span>12 Clases</span> <b>S/ 300</b></div>
+                        <div class="price-item"><span>08 Clases</span> <b>S/ 270</b></div>
+                        <div class="price-item"><span>04 Clases</span> <b>S/ 190</b></div>
+                        <div class="price-item"><span>01 Clase</span> <b>S/ 50</b></div>
+                    </div>
+                    <div class="price-card">
+                        <h3>Adultos Agosto</h3>
+                        <div class="price-item"><span>12 Clases</span> <b>S/ 266</b></div>
+                        <div class="price-item"><span>08 Clases</span> <b>S/ 210</b></div>
+                        <div class="price-item"><span>04 Clases</span> <b>S/ 130</b></div>
+                        <div class="price-item"><span>01 Clase</span> <b>S/ 40</b></div>
+                    </div>
+                    <div class="price-card">
+                        <h3>AquaBebé (4m-3a)</h3>
+                        <div class="price-item"><span>12 Clases</span> <b>S/ 290</b></div>
+                        <div class="price-item"><span>08 Clases</span> <b>S/ 260</b></div>
+                        <div class="price-item"><span>04 Clases</span> <b>S/ 190</b></div>
+                        <div class="price-item" style="color: #f3b229;"><span>🎉 Niños 12 clases</span> <b>S/ 240</b></div>
+                        <div class="price-item" style="color: #f3b229;"><span>Niños 08 clases</span> <b>S/ 190</b></div>
+                        <div class="price-item" style="color: #f3b229;"><span>Niños 04 clases</span> <b>S/ 105</b></div>
+                    </div>
+                </div>
+
+                <!-- HORARIOS -->
+                <h2 class="section-title"><i class="fas fa-calendar-alt"></i> Horarios</h2>
+                <div class="schedule-grid">
+                    <div class="schedule-card">
+                        <h4>Niños (4+)</h4>
+                        <ul>
+                            <li>Lun-Mie-Vie: 05:00 - 08:00 PM</li>
+                            <li>Mar-Jue: 05:00 - 07:00 PM</li>
+                            <li>Sábados: 03:00 - 05:00 PM</li>
+                            <li>Domingos: 09:00 - 10:00 AM</li>
+                        </ul>
+                    </div>
+                    <div class="schedule-card">
+                        <h4>Adultos</h4>
+                        <ul>
+                            <li>Lun-Mie-Vie: 06:00 AM / 06:00 - 08:00 PM</li>
+                            <li>Mar-Jue: 06:00 - 07:00 AM</li>
+                            <li>Sábados: 05:00 - 07:00 AM</li>
+                            <li>Domingos: 09:00 - 10:00 AM</li>
+                        </ul>
+                    </div>
+                    <div class="schedule-card">
+                        <h4>AquaBebé</h4>
+                        <ul>
+                            <li>Lun-Mie-Vie: 05:00 - 08:00 PM</li>
+                            <li>Mar-Jue: 05:00 - 07:00 PM</li>
+                            <li>Sábados: 03:00 - 05:00 PM</li>
+                            <li>Domingos: 10:00 AM - 01:00 PM</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- NUEVO CARRUSEL DE TESTIMONIOS -->
+                <h2 class="section-title"><i class="fas fa-star"></i> Testimonios de Alumnos</h2>
+                <div class="testimonials-carousel-container" id="testimonials-carousel">
+                    <div class="testimonials-track" id="testimonials-track">
+                        <div class="testimonial-card"><div class="stars">★★★★★</div><h4>María G.</h4><p>¡Excelente lugar para aprender! Mis hijos aman sus clases.</p></div>
+                        <div class="testimonial-card"><div class="stars">★★★★★</div><h4>Carlos R.</h4><p>Los profesores son muy buenos. Perdí el miedo al agua.</p></div>
+                        <div class="testimonial-card"><div class="stars">★★★★★</div><h4>Ana Lucía</h4><p>Mi bebé de 9 meses ama sus clases. Muy seguro y cálido.</p></div>
+                        <div class="testimonial-card"><div class="stars">★★★★★</div><h4>Jorge P.</h4><p>Excelente técnica para aprender rápido. Muy recomendado.</p></div>
+                    </div>
+                    <button class="car-btn prev" onclick="moveTestimonials(-1)">❮</button>
+                    <button class="car-btn next" onclick="moveTestimonials(1)">❯</button>
+                </div>
+
+            </div>
+
+            <!-- GALERÍA TAB -->
+            <div id="gallery-tab" class="tab-content">
+                <h2 class="section-title"><i class="fas fa-images"></i> Galería de Imágenes</h2>
+                <div class="carousel-container" id="img-carousel">
+                    <div class="carousel-track">
+                        <div class="carousel-item"><img src="IMG-20260819-WA0019.jpg"></div>
+                        <div class="carousel-item"><img src="IMG-20260819-WA0020.jpg"></div>
+                        <div class="carousel-item"><img src="IMG-20260819-WA0021.jpg"></div>
+                        <div class="carousel-item"><img src="IMG-20260819-WA0022.jpg"></div>
+                        <div class="carousel-item"><img src="IMG-20260819-WA0024.jpg"></div>
+                        <div class="carousel-item"><img src="IMG-20260819-WA0025.jpg"></div>
+                    </div>
+                    <button class="car-btn prev-btn" onclick="moveGallery(-1, 'img-carousel')">❮</button>
+                    <button class="car-btn next-btn" onclick="moveGallery(1, 'img-carousel')">❯</button>
+                </div>
+
+                <h2 class="section-title" style="margin-top: 40px;"><i class="fas fa-video"></i> Galería de Videos</h2>
+                <div class="carousel-container" id="vid-carousel">
+                    <div class="carousel-track">
+                        <div class="carousel-item"><video src="VID-20260819-WA0026.mp4" controls></video></div>
+                        <div class="carousel-item"><video src="VID-20260819-WA0027.mp4" controls></video></div>
+                        <div class="carousel-item"><video src="VID-20260819-WA0028.mp4" controls></video></div>
+                        <div class="carousel-item"><video src="VID-20260819-WA0029.mp4" controls></video></div>
+                        <div class="carousel-item"><video src="VID-20260819-WA0030.mp4" controls></video></div>
+                        <div class="carousel-item"><video src="VID-20260819-WA0031.mp4" controls></video></div>
+                    </div>
+                    <button class="car-btn prev-btn" onclick="moveGallery(-1, 'vid-carousel')">❮</button>
+                    <button class="car-btn next-btn" onclick="moveGallery(1, 'vid-carousel')">❯</button>
+                </div>
+            </div>
+
+            <!-- EXPERIENCIA TAB -->
+            <div id="reviews-tab" class="tab-content">
+                <h2 class="section-title"><i class="fas fa-star"></i> Experiencia de Alumnos</h2>
                 
-                <div class="placeholder" style="display: none;">Pronto más promociones del mes!</div>
+                <!-- TESTIMONIOS FIJO -->
+                <div class="reviews-grid">
+                    <div class="review-card"><div class="stars">★★★★★</div><h4>María G.</h4><p>¡Excelente lugar para aprender!</p></div>
+                    <div class="review-card"><div class="stars">★★★★★</div><h4>Carlos R.</h4><p>Muy buenos profesores.</p></div>
+                    <div class="review-card"><div class="stars">★★★★★</div><h4>Ana Lucía</h4><p>Mi bebé ama sus clases.</p></div>
+                </div>
 
-                <button class="hero-arrow prev-btn" onclick="moveSlide(-1)">❮</button>
-                <button class="hero-arrow next-btn" onclick="moveSlide(1)">❯</button>
-
-                <div class="hero-dots">
-                    <span class="dot active" onclick="currentSlide(0)"></span>
-                    <span class="dot" onclick="currentSlide(1)"></span>
-                    <span class="dot" onclick="currentSlide(2)"></span>
-                    <span class="dot" onclick="currentSlide(3)"></span>
-                    <span class="dot" onclick="currentSlide(4)"></span>
-                    <span class="dot" onclick="currentSlide(5)"></span>
+                <div class="review-form">
+                    <h3 style="text-align: center;">¡Déjanos tu reseña!</h3>
+                    <form onsubmit="submitReview(event)">
+                        <input type="text" placeholder="Nombre" id="rev-name">
+                        <select id="rev-stars">
+                            <option value="5">★★★★★ Excelente</option>
+                            <option value="4">★★★★☆ Muy bueno</option>
+                            <option value="3">★★★☆☆ Bueno</option>
+                            <option value="2">★★☆☆☆ Regular</option>
+                            <option value="1">★☆☆☆☆ Malo</option>
+                        </select>
+                        <textarea placeholder="Tu experiencia" id="rev-text" required></textarea>
+                        <button type="submit">Enviar</button>
+                    </form>
                 </div>
             </div>
-        </div>
-
-        <!-- HERO ACUÁTICO -->
-        <section class="aqua-hero">
-            <h1>Aqua<span>Mar</span> Swimming Gold</h1>
-            <p>Clases para Bebés, Niños, Adultos, Terapia y Competitivo</p>
-            <a href="https://wa.me/51961875074" target="_blank" class="cta-btn">
-                <i class="fab fa-whatsapp"></i> ¡Agenda tu clase gratis!
-            </a>
-        </section>
-
-        <!-- SERVICIOS -->
-        <div class="container">
-            <h2 class="section-title">Nuestros Servicios</h2>
-            <div class="services-grid">
-                <div class="service-card"><i class="fas fa-baby"></i><h4>AquaBebé</h4><p>4m a 3 años</p></div>
-                <div class="service-card"><i class="fas fa-child"></i><h4>Niños</h4><p>Básico a Avanzado</p></div>
-                <div class="service-card"><i class="fas fa-user"></i><h4>Adultos</h4><p>Todas las edades</p></div>
-                <div class="service-card"><i class="fas fa-heartbeat"></i><h4>Terapia</h4><p>Especializada</p></div>
-                <div class="service-card"><i class="fas fa-trophy"></i><h4>Competitivo</h4><p>Nivel torneo</p></div>
-            </div>
-        </div>
-
-        <!-- TARIFAS -->
-        <div class="container" style="margin-top: 40px;">
-            <h2 class="section-title">Planes y Tarifas</h2>
-            <div class="pricing-wrapper">
-                <div class="price-card">
-                    <h3>Niños & Adultos</h3>
-                    <div class="price-item"><span>12 Clases</span> <b>S/ 300</b></div>
-                    <div class="price-item"><span>08 Clases</span> <b>S/ 270</b></div>
-                    <div class="price-item"><span>04 Clases</span> <b>S/ 190</b></div>
-                    <div class="price-item"><span>01 Clase</span> <b>S/ 50</b></div>
-                </div>
-                <div class="price-card">
-                    <h3>Adultos Agosto</h3>
-                    <div class="price-item"><span>12 Clases</span> <b>S/ 266</b></div>
-                    <div class="price-item"><span>08 Clases</span> <b>S/ 210</b></div>
-                    <div class="price-item"><span>04 Clases</span> <b>S/ 130</b></div>
-                    <div class="price-item"><span>01 Clase</span> <b>S/ 40</b></div>
-                </div>
-                <div class="price-card">
-                    <h3>AquaBebé (4m-3a)</h3>
-                    <div class="price-item"><span>12 Clases</span> <b>S/ 290</b></div>
-                    <div class="price-item"><span>08 Clases</span> <b>S/ 260</b></div>
-                    <div class="price-item"><span>04 Clases</span> <b>S/ 190</b></div>
-                    <div class="price-item" style="color: #f3b229;"><span>🎉 Niños 12 clases</span> <b>S/ 240</b></div>
-                    <div class="price-item" style="color: #f3b229;"><span>Niños 08 clases</span> <b>S/ 190</b></div>
-                    <div class="price-item" style="color: #f3b229;"><span>Niños 04 clases</span> <b>S/ 105</b></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- HORARIOS -->
-        <div class="container" style="margin-top: 40px;">
-            <h2 class="section-title">Horarios</h2>
-            <div class="schedule-grid">
-                <div class="schedule-card">
-                    <h4>Niños (4+)</h4>
-                    <ul>
-                        <li>Lun-Mie-Vie: 05:00 - 08:00 PM</li>
-                        <li>Mar-Jue: 05:00 - 07:00 PM</li>
-                        <li>Sábados: 03:00 - 05:00 PM</li>
-                        <li>Domingos: 09:00 - 10:00 AM</li>
-                    </ul>
-                </div>
-                <div class="schedule-card">
-                    <h4>Adultos</h4>
-                    <ul>
-                        <li>Lun-Mie-Vie: 06:00 AM / 06:00 - 08:00 PM</li>
-                        <li>Mar-Jue: 06:00 - 07:00 AM</li>
-                        <li>Sábados: 05:00 - 07:00 AM</li>
-                        <li>Domingos: 09:00 - 10:00 AM</li>
-                    </ul>
-                </div>
-                <div class="schedule-card">
-                    <h4>AquaBebé</h4>
-                    <ul>
-                        <li>Lun-Mie-Vie: 05:00 - 08:00 PM</li>
-                        <li>Mar-Jue: 05:00 - 07:00 PM</li>
-                        <li>Sábados: 03:00 - 05:00 PM</li>
-                        <li>Domingos: 10:00 AM - 01:00 PM</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- GALERÍA -->
-    <div id="gallery-tab" class="tab-content">
-        <h2 class="section-title">Galería de Imágenes</h2>
-        <div class="carousel-container" id="img-carousel">
-            <div class="carousel-track">
-                <div class="carousel-item"><img src="IMG-20260819-WA0019.jpg"></div>
-                <div class="carousel-item"><img src="IMG-20260819-WA0020.jpg"></div>
-                <div class="carousel-item"><img src="IMG-20260819-WA0021.jpg"></div>
-                <div class="carousel-item"><img src="IMG-20260819-WA0022.jpg"></div>
-                <div class="carousel-item"><img src="IMG-20260819-WA0024.jpg"></div>
-                <div class="carousel-item"><img src="IMG-20260819-WA0025.jpg"></div>
-            </div>
-            <button class="car-btn prev-btn" onclick="moveGallery(-1, 'img-carousel')">❮</button>
-            <button class="car-btn next-btn" onclick="moveGallery(1, 'img-carousel')">❯</button>
-        </div>
-
-        <h2 class="section-title" style="margin-top: 40px;">Galería de Videos</h2>
-        <div class="carousel-container" id="vid-carousel">
-            <div class="carousel-track">
-                <div class="carousel-item"><video src="VID-20260819-WA0026.mp4" controls></video></div>
-                <div class="carousel-item"><video src="VID-20260819-WA0027.mp4" controls></video></div>
-                <div class="carousel-item"><video src="VID-20260819-WA0028.mp4" controls></video></div>
-                <div class="carousel-item"><video src="VID-20260819-WA0029.mp4" controls></video></div>
-                <div class="carousel-item"><video src="VID-20260819-WA0030.mp4" controls></video></div>
-                <div class="carousel-item"><video src="VID-20260819-WA0031.mp4" controls></video></div>
-            </div>
-            <button class="car-btn prev-btn" onclick="moveGallery(-1, 'vid-carousel')">❮</button>
-            <button class="car-btn next-btn" onclick="moveGallery(1, 'vid-carousel')">❯</button>
-        </div>
-    </div>
-
-    <!-- EXPERIENCIA -->
-    <div id="reviews-tab" class="tab-content">
-        <h2 class="section-title">Experiencia de Alumnos</h2>
-        <div class="reviews-grid">
-            <div class="review-card"><div class="stars">★★★★★</div><h4>María G.</h4><p>¡Excelente lugar para aprender!</p></div>
-            <div class="review-card"><div class="stars">★★★★★</div><h4>Carlos R.</h4><p>Muy buenos profesores.</p></div>
-            <div class="review-card"><div class="stars">★★★★★</div><h4>Ana Lucía</h4><p>Mi bebé ama sus clases.</p></div>
-        </div>
-
-        <div class="review-form">
-            <h3 style="text-align: center;">¡Déjanos tu reseña!</h3>
-            <form onsubmit="submitReview(event)">
-                <input type="text" placeholder="Nombre" id="rev-name">
-                <select id="rev-stars">
-                    <option value="5">★★★★★ Excelente</option>
-                    <option value="4">★★★★☆ Muy bueno</option>
-                    <option value="3">★★★☆☆ Bueno</option>
-                    <option value="2">★★☆☆☆ Regular</option>
-                    <option value="1">★☆☆☆☆ Malo</option>
-                </select>
-                <textarea placeholder="Tu experiencia" id="rev-text" required></textarea>
-                <button type="submit">Enviar</button>
-            </form>
-        </div>
+        </main>
     </div>
 
     <!-- CONTACTO -->
@@ -492,6 +530,7 @@
             document.getElementById('nav-' + tabName).classList.add('active');
         }
 
+        // Carrusel Principal
         let slideIndex = 0;
         const slides = document.querySelectorAll('.hero-slide');
         const dots = document.querySelectorAll('.dot');
@@ -517,6 +556,36 @@
 
             clearInterval(slideInterval);
             slideInterval = setInterval(() => moveSlide(1), 5000);
+        }
+
+        // Nuevo carrusel de Noticias
+        let newsIndex = 0;
+        function moveNews(direction) {
+            const track = document.getElementById('news-track');
+            const card = track.querySelector('.news-card');
+            const cardWidth = card.clientWidth + 20;
+            const totalCards = track.querySelectorAll('.news-card').length;
+            newsIndex += direction;
+
+            if (newsIndex < 0) newsIndex = 0;
+            if (newsIndex > totalCards - 1) newsIndex = totalCards - 1;
+
+            track.style.transform = `translateX(-${newsIndex * cardWidth}px)`;
+        }
+
+        // Nuevo carrusel de Testimonios
+        let testiIndex = 0;
+        function moveTestimonials(direction) {
+            const track = document.getElementById('testimonials-track');
+            const card = track.querySelector('.testimonial-card');
+            const cardWidth = card.clientWidth + 30;
+            const totalCards = track.querySelectorAll('.testimonial-card').length;
+            testiIndex += direction;
+
+            if (testiIndex < 0) testiIndex = 0;
+            if (testiIndex > totalCards - 1) testiIndex = totalCards - 1;
+
+            track.style.transform = `translateX(-${testiIndex * cardWidth}px)`;
         }
 
         function moveGallery(direction, sliderId) {

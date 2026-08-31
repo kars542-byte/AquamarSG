@@ -28,7 +28,7 @@
             position: relative;
         }
 
-        /* ============ MARCA DE AGUA (LOGO SUPERPUESTO) ============ */
+        /* ============ MARCA DE AGUA (8% DE TRANSPARENCIA) ============ */
         .watermark {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -36,7 +36,7 @@
             background-size: 350px;
             background-repeat: repeat;
             background-position: center;
-            opacity: 0.04; /* 4% de transparencia */
+            opacity: 0.08; /* ¡ACTUALIZADO AL 8%! */
             pointer-events: none;
             z-index: 0;
         }
@@ -96,7 +96,7 @@
         .mobile-icons a { color: var(--logo-blue); font-size: 1.5rem; cursor: pointer; }
         .hamburger { display: none; color: var(--logo-blue); font-size: 2rem; cursor: pointer; }
         
-        /* ======== MÓVIL ======== */
+        /* ======== MÓVIL (TODO ALINEADO A LA DERECHA, ICONOS A LA IZQUIERDA) ======== */
         @media (max-width: 900px) {
             .navbar { padding: 10px 15px; }
             .mobile-icons { display: flex; }
@@ -106,14 +106,35 @@
             .nav-links.active { display: flex; }
             .sidebar { display: none; }
 
-            .main-layout { grid-template-columns: 1fr; margin: 15px auto; gap: 0; padding: 0 10px; }
+            /* Layout general: Reserva espacio a la izquierda para el menú flotante */
+            .main-layout { grid-template-columns: 1fr; margin: 15px auto; gap: 0; padding: 0 15px 0 55px; }
 
-            .aqua-hero { padding: 20px 15px; margin: 20px auto; max-width: 95%; border-radius: 15px; }
-            .aqua-hero h1 { font-size: 1.3rem; line-height: 1.4; margin-bottom: 15px; white-space: normal; word-break: keep-all; text-align: center; }
+            /* HERO: ALINEADO A LA DERECHA Y COMPACTO */
+            .aqua-hero { 
+                padding: 20px 15px; 
+                margin: 20px 0 20px auto; /* Margen a la izquierda automático para empujarlo a la derecha */
+                max-width: 95%; 
+                border-radius: 15px; 
+                text-align: right; /* Texto a la derecha */
+            }
+            .aqua-hero h1 { font-size: 1.3rem; line-height: 1.4; margin-bottom: 15px; white-space: normal; word-break: keep-all; text-align: right; }
             .aqua-hero p { font-size: 0.95rem; line-height: 1.4; margin-bottom: 20px; }
-            .cta-btn { display: block; width: 90%; max-width: 300px; margin: 0 auto; padding: 12px 20px; font-size: 0.95rem; border-radius: 50px; text-align: center; white-space: nowrap; }
+            .cta-btn { display: block; width: 90%; max-width: 300px; margin: 0 0 0 auto; padding: 12px 20px; font-size: 0.95rem; border-radius: 50px; text-align: center; white-space: nowrap; }
 
-            .section-title { font-size: 1.8rem; margin: 30px 0 20px; }
+            /* HISTORIA: ALINEADO A LA DERECHA Y COMPACTO */
+            .history-container {
+                margin: 20px 0 20px auto; /* Empujado a la derecha */
+                max-width: 95%;
+                padding: 15px;
+                text-align: right;
+            }
+            .history-card h3 { font-size: 1.5rem; text-align: right; }
+            .history-card p { font-size: 0.95rem; line-height: 1.5; text-align: right; }
+
+            /* Noticias y demás títulos alineados a la derecha */
+            .section-title { font-size: 1.8rem; margin: 30px 0 20px; text-align: right; }
+            .news-card, .price-card, .schedule-card, .service-card { text-align: right; }
+
             .carousel-wrapper { height: 220px; border: 3px solid var(--gold); border-radius: 10px; }
             .hero-slide img { object-fit: cover; }
             .hero-arrow { padding: 8px 10px; font-size: 1.2rem; }
@@ -164,7 +185,7 @@
         .tab-content.active { display: block; }
         .section-title { text-align: center; font-size: 2.5rem; font-weight: 800; color: var(--gold); margin: 40px 0 30px; text-shadow: 2px 2px 0px var(--navy-deep); }
         
-        /* HERO */
+        /* HERO (PC - Centrado) */
         .aqua-hero { 
             background: linear-gradient(145deg, #fdfbf7 0%, #fce4ec 40%, #e1f5fe 100%); 
             border-radius: 20px; padding: 40px; text-align: center; margin-bottom: 30px; 
@@ -178,7 +199,7 @@
         .cta-btn { display: inline-block; margin-top: 25px; background: var(--gold); color: var(--navy-deep); padding: 15px 40px; border-radius: 50px; font-size: 1.2rem; font-weight: 800; border: 3px solid var(--navy-deep); box-shadow: 0 6px 0 #c98d1c; transition: 0.2s; }
         .cta-btn:hover { transform: translateY(-3px); }
 
-        /* HISTORIA */
+        /* HISTORIA (PC - Centrado) */
         .history-container {
             background-color: #f5e6c8;
             background-image: repeating-linear-gradient(45deg, rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 2px, transparent 2px, transparent 4px);
@@ -269,7 +290,7 @@
 </head>
 <body>
 
-    <!-- LOGO SUPERPUESTO EN FONDO (4% Transparencia) -->
+    <!-- MARCA DE AGUA (8%) -->
     <div class="watermark"></div>
 
     <!-- Burbujas -->

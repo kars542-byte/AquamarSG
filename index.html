@@ -62,7 +62,7 @@
         .nav-links a { color: var(--logo-blue); transition: 0.3s; cursor: pointer; }
         .nav-links a:hover, .nav-links a.active { color: var(--gold); }
 
-        /* MENÚ DE ICONOS MÓVIL (A LA DERECHA) */
+        /* MENÚ DE ICONOS MÓVIL (A LA DERECHA - MÁS ICONOS) */
         .mobile-right-menu { 
             display: none; 
             position: fixed; 
@@ -113,8 +113,8 @@
             #home-tab { display: flex; flex-direction: column; }
             .film-strip { order: 999; width: 100%; margin-top: 40px; }
 
-            /* OCULTAR CAJAS EN MÓVIL */
-            .aqua-hero, .history-container { display: none; }
+            /* OCULTAR CAJAS Y TÍTULOS PROBLEMÁTICOS EN MÓVIL */
+            .aqua-hero, .history-container, .mobile-hide-title { display: none; }
 
             /* Título simple sin caja para móvil */
             .mobile-hero-title {
@@ -346,9 +346,12 @@
     <!-- Burbujas -->
     <div class="bubbles"><span></span><span></span><span></span><span></span><span></span></div>
 
-    <!-- MENÚ DE ICONOS REDONDOS (Móvil, AHORA A LA DERECHA) -->
+    <!-- MENÚ DE ICONOS MÓVIL (A LA DERECHA - 7 ICONOS PARA CUBRIR EL VACÍO) -->
     <div class="mobile-right-menu">
         <a href="#" onclick="switchTab('home')" title="Inicio"><i class="fas fa-home"></i></a>
+        <a href="#" onclick="navToSection('servicios')" title="Servicios"><i class="fas fa-swimmer"></i></a>
+        <a href="#" onclick="navToSection('precios')" title="Precios"><i class="fas fa-tags"></i></a>
+        <a href="#" onclick="navToSection('horarios')" title="Horarios"><i class="fas fa-clock"></i></a>
         <a href="#" onclick="switchTab('gallery')" title="Galería"><i class="fas fa-images"></i></a>
         <a href="#" onclick="switchTab('reviews')" title="Experiencia"><i class="fas fa-star"></i></a>
         <a href="https://wa.me/51961875074" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
@@ -429,8 +432,8 @@
                     </div>
                 </div>
 
-                <!-- HISTORIA (SOLO PC) -->
-                <h2 class="section-title">Nuestra Historia</h2>
+                <!-- HISTORIA (SOLO PC: SE OCULTA TÍTULO Y CONTENIDO EN MÓVIL) -->
+                <h2 class="section-title mobile-hide-title">Nuestra Historia</h2>
                 <div class="history-container">
                     <div class="history-card">
                         <h3><i class="fas fa-scroll"></i> Un Legado de Campeones <i class="fas fa-scroll"></i></h3>
@@ -447,8 +450,8 @@
                     </div>
                 </div>
 
-                <!-- NOTICIAS -->
-                <h2 class="section-title">Noticias del Mes</h2>
+                <!-- NOTICIAS (EN MÓVIL SE MUESTRAN LAS TARJETAS PERO NO EL TÍTULO) -->
+                <h2 class="section-title mobile-hide-title">Noticias del Mes</h2>
                 <div class="news-grid">
                     <div class="news-card">
                         <div class="date">Septiembre 2026</div>
@@ -471,7 +474,7 @@
                 </div>
 
                 <!-- SERVICIOS -->
-                <h2 class="section-title">Servicios</h2>
+                <h2 class="section-title" id="servicios">Servicios</h2>
                 <div class="services-grid">
                     <div class="service-card"><i class="fas fa-baby"></i><h4>AquaBebé</h4><p>4m a 3 años</p></div>
                     <div class="service-card"><i class="fas fa-child"></i><h4>Niños</h4><p>Básico a Avanzado</p></div>
@@ -481,7 +484,7 @@
                 </div>
 
                 <!-- PRECIOS -->
-                <h2 class="section-title">Planes y Tarifas</h2>
+                <h2 class="section-title" id="precios">Planes y Tarifas</h2>
                 <div class="pricing-wrapper">
                     <div class="price-card"><h3>Niños & Adultos</h3><div class="price-item"><span>12 Clases</span> <b>S/ 300</b></div><div class="price-item"><span>08 Clases</span> <b>S/ 270</b></div><div class="price-item"><span>04 Clases</span> <b>S/ 190</b></div><div class="price-item"><span>01 Clase</span> <b>S/ 50</b></div></div>
                     <div class="price-card"><h3>Adultos Agosto</h3><div class="price-item"><span>12 Clases</span> <b>S/ 266</b></div><div class="price-item"><span>08 Clases</span> <b>S/ 210</b></div><div class="price-item"><span>04 Clases</span> <b>S/ 130</b></div><div class="price-item"><span>01 Clase</span> <b>S/ 40</b></div></div>
@@ -489,7 +492,7 @@
                 </div>
 
                 <!-- HORARIOS -->
-                <h2 class="section-title">Horarios</h2>
+                <h2 class="section-title" id="horarios">Horarios</h2>
                 <div class="schedule-grid">
                     <div class="schedule-card"><h4>Niños (4+)</h4><ul><li>Lun-Mie-Vie: 05:00 - 08:00 PM</li><li>Mar-Jue: 05:00 - 07:00 PM</li><li>Sábados: 03:00 - 05:00 PM</li><li>Domingos: 09:00 - 10:00 AM</li></ul></div>
                     <div class="schedule-card"><h4>Adultos</h4><ul><li>Lun-Mie-Vie: 06:00 AM / 06:00 - 08:00 PM</li><li>Mar-Jue: 06:00 - 07:00 AM</li><li>Sábados: 05:00 - 07:00 AM</li><li>Domingos: 09:00 - 10:00 AM</li></ul></div>
@@ -570,6 +573,17 @@
             document.querySelectorAll('.nav-links a').forEach(el => el.classList.remove('active'));
             document.getElementById(tabName + '-tab').classList.add('active');
             document.getElementById('nav-' + tabName).classList.add('active');
+        }
+
+        // Función para ir a una sección específica desde el menú móvil
+        function navToSection(sectionId) {
+            switchTab('home');
+            setTimeout(() => {
+                const element = document.getElementById(sectionId);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 100);
         }
         
         let slideIndex = 0;
